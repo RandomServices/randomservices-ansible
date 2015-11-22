@@ -1,3 +1,5 @@
+- include_vars: '{{ app_to_deploy }}_deployment_key.yml'
+
 - name: 'create directory to hold SSH keys for {{ app_to_deploy }} deployment'
   file:
     name: '/home/{{ app_to_deploy }}/.ssh/keys'
@@ -9,6 +11,11 @@
     url: '{{ item }}'
   with_items:
     - https://github.com/RobinDaugherty.keys
+
+- name: 'place CircleCI ssh key for {{ app_to_deploy }} deployment'
+  copy:
+    content: '{{ deployment_key }}'
+    dest: '/home/{{ app_to_deploy }}/.ssh/keys/deployment'
 
 - name: 'assemble ssh keys for {{ app_to_deploy }} deployment'
   assemble:
