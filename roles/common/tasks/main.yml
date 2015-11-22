@@ -1,0 +1,5 @@
+- include: aptitude.yml
+- include: ssh.yml
+- include: logrotate.yml
+- include: sysctl.yml
+- include: root_ca.yml

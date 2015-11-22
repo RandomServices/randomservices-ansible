@@ -1,0 +1,6 @@
+- include: rbenv.yml
+- include: "{{ ruby_version }}.yml"
+- include: app_folders.yml
+- include: app_deploy_user.yml
+- include: app_command.yml
+- include: logrotate.yml

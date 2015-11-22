@@ -1,0 +1,29 @@
+- name: install python-software-properties
+  apt: pkg=python-software-properties state=present
+
+- name: install packages required for rbenv
+  apt:
+    pkg: '{{ item }}'
+    state: present
+  with_items:
+   - libcurl4-openssl-dev
+   - libpcre3-dev
+   - git-core
+   - libmagickwand-dev
+   - libpq-dev
+   - npm
+   - libgtkmm-2.4-dev
+   - libxslt-dev
+
+- name: git clone rbenv
+  git:
+    repo: https://github.com/sstephenson/rbenv.git
+    dest: /usr/local/rbenv
+
+- name: create rbenv profile initializer
+  template: src=profile-rbenv.sh dest=/etc/profile.d/rbenv.sh owner=root group=root mode=0644
+
+- name: git clone ruby-build
+  git:
+    repo: https://github.com/sstephenson/ruby-build.git
+    dest: /usr/local/rbenv/plugins/ruby-build

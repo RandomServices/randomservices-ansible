@@ -1,0 +1,4 @@
+# http://docs.ansible.com/playbooks_best_practices.html#top-level-playbooks-are-separated-by-role
+
+- include: initial_setup.yml
+- include: web.yml

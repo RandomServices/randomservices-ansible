@@ -1,0 +1,13 @@
+- name: update Aptitude cache
+  apt: update_cache=yes
+
+- name: upgrade Aptitude packages
+  apt: upgrade=safe
+
+- name: install common apt packages
+  apt:
+    pkg: '{{ item }}'
+    state: latest
+  with_items:
+   - htop
+   - ntp

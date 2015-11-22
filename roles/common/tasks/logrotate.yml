@@ -1,0 +1,5 @@
+- name: configure logrotate to run daily
+  cron:
+    name="rotate logs"
+    special_time=daily
+    job="logrotate -v /etc/logrotate.conf"

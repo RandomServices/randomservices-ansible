@@ -1,0 +1,14 @@
+- name: create webapps group
+  group: name=webapps gid=600 state=present
+
+- name: create {{ app_to_deploy }} user
+  user: name={{ app_to_deploy }} shell=/bin/bash group=webapps state=present
+
+- name: create directory /var/www/{{ app_to_deploy }}
+  file: path=/var/www/{{ app_to_deploy }} state=directory group=webapps owner={{ app_to_deploy }} recurse=yes
+
+- name: create directory /var/www/{{ app_to_deploy }}/shared
+  file: path=/var/www/{{ app_to_deploy }}/shared state=directory group=webapps owner={{ app_to_deploy }} recurse=yes
+
+- name: create {{ app_to_deploy }} .ssh directory
+  file: path=/home/{{ app_to_deploy }}/.ssh state=directory group=webapps owner={{ app_to_deploy }} recurse=yes

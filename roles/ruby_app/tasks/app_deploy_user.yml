@@ -1,0 +1,19 @@
+- name: 'create directory to hold SSH keys for {{ app_to_deploy }} deployment'
+  file:
+    name: '/home/{{ app_to_deploy }}/.ssh/keys'
+    state: directory
+
+- name: 'download ssh keys for {{ app_to_deploy }} deployment'
+  get_url:
+    dest: '/home/{{ app_to_deploy }}/.ssh/keys'
+    url: '{{ item }}'
+  with_items:
+    - https://github.com/RobinDaugherty.keys
+
+- name: 'assemble ssh keys for {{ app_to_deploy }} deployment'
+  assemble:
+    dest: '/home/{{ app_to_deploy }}/.ssh/authorized_keys'
+    src: '/home/{{ app_to_deploy }}/.ssh/keys'
+    owner: root
+    group: root
+    mode: 0644
