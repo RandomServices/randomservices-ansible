@@ -1,14 +1,23 @@
 - name: disable SSH password login
-  lineinfile: dest=/etc/ssh/sshd_config line="PasswordAuthentication no"
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    line: "PasswordAuthentication no"
+    regexp: "PasswordAuthentication yes"
   notify:
     - sshd needs to be restarted
 
-- name: add TCPKeepAlive to ssh config
-  lineinfile: dest=/etc/ssh/sshd_config line="TCPKeepAlive yes"
+- name: enable SSH TCPKeepAlive
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    line: "TCPKeepAlive yes"
+    regexp: "TCPKeepAlive no"
   notify:
     - sshd needs to be restarted
 
-- name: add PermitUserEnvironment to ssh config
-  lineinfile: dest=/etc/ssh/sshd_config line="PermitUserEnvironment yes"
+- name: enable SSH PermitUserEnvironment
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    line: "PermitUserEnvironment yes"
+    regexp: "PermitUserEnvironment no"
   notify:
     - sshd needs to be restarted
