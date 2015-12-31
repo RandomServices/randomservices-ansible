@@ -2,7 +2,7 @@
   lineinfile:
     dest: /etc/ssh/sshd_config
     line: "PasswordAuthentication no"
-    regexp: "PasswordAuthentication yes"
+    regexp: "PasswordAuthentication (yes|no)"
   notify:
     - sshd needs to be restarted
 
@@ -10,7 +10,7 @@
   lineinfile:
     dest: /etc/ssh/sshd_config
     line: "TCPKeepAlive yes"
-    regexp: "TCPKeepAlive no"
+    regexp: "TCPKeepAlive (yes|no)"
   notify:
     - sshd needs to be restarted
 
@@ -18,7 +18,7 @@
   lineinfile:
     dest: /etc/ssh/sshd_config
     line: "PermitUserEnvironment yes"
-    regexp: "PermitUserEnvironment no"
+    regexp: "PermitUserEnvironment (yes|no)"
   notify:
     - sshd needs to be restarted
 
