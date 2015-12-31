@@ -21,3 +21,11 @@
     regexp: "PermitUserEnvironment no"
   notify:
     - sshd needs to be restarted
+
+- name: disable root SSH login
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    line: "PermitRootLogin no"
+    regexp: "PermitRootLogin (yes|no)"
+  notify:
+    - sshd needs to be restarted
