@@ -7,6 +7,7 @@
   with_items:
    - libapache2-mod-php5
    - php5-mysql
+   - php5-curl
 
 - name: install NewRelic PHP module
   apt:
