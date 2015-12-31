@@ -10,10 +10,10 @@
 #
 # For subsequent runs of this (updating users, for instance), do the following:
 # ````ansible-playbook initial_setup.yml -i hosts --sudo````
----
+
 - hosts: all
   sudo: true
   roles:
     - common
-    # - groups
-    # - users
+    - groups
+    - users

@@ -24,46 +24,6 @@ To limit to a specific host (or pattern) add the `-l <hostname>` option to the c
 
 ## Running Ansible
 
-#### New Servers
-
-This process adds our users to the machines, applies, package updates, and prepares the machine for use.
-
-For first-time setup of servers, first add your SSH key to the root user:
-
-    ssh root@hostname "mkdir ~/.ssh; curl https://github.com/RobinDaugherty.keys > ~/.ssh/authorized_keys"
-
-and enter the root password for the server when prompted. Then run the following to log in as root:
-
-    ansible-playbook initial_setup.yml -i hosts-production -u root
-
-To limit to a specific host (or pattern) add the `-l <hostname>` option to the command line.
-You can specify a group name (from the `hosts` file), or a full hostname.
-
-Remove your pub keys:
-
-    ssh root@hostname "rm ~/.ssh/authorized_keys"
-
-Now, you can follow the normal process for existing servers.
-
-#### Existing Servers
-
-For subsequent runs of this (updating users, for instance), do the following:
-
-    ansible-playbook site.yml -i hosts-production --ask-sudo-pass
-
-This will update all servers, *note that this may restart services* so don't do it to production servers.
-
-To limit to a specific host (or pattern) add the `-l <hostname>` option to the command line.
-You can specify a group name (from the `hosts` file), or a full hostname.
-
-## Details
-
-### Roles
-
-#### DNS
-
-#### Web Server
-
 ### Encrypted files using Vault
 
 When we store information that must be encrypted in this project, it is stored using Ansible's Vault feature, which encrypts a YAML file. So the file must be in the `vars` folder for the role that uses it.
@@ -74,7 +34,43 @@ The [Ansible documentation](http://docs.ansible.com/playbooks_vault.html#creatin
 
 So for example: `EDITOR='mate -w' ansible-vault edit roles/web_server/vars/ssl.yml` will prompt you for the passphrase, decrypt the file, wait for you to edit and close the file, then encrypt the new contents.
 
-### Testing with Vagrant
+Place the passphrase in the `.vault_pass.txt` file so you can specify it in the command line.
+Never commit the passphrase! If you use this filename it will be ignored by git.
+
+
+### New Servers
+
+This process adds our users to the machines, applies, package updates, and prepares the machine for use.
+
+For first-time setup of servers, first add your SSH key to the root user (not needed for AWS):
+
+    ssh root@hostname "mkdir ~/.ssh; curl https://github.com/RobinDaugherty.keys > ~/.ssh/authorized_keys"
+
+and enter the root password for the server when prompted. Then run the following to log in as root (or ubuntu on AWS):
+
+    ansible-playbook initial_setup.yml -i hosts-production -u root --vault-password-file=.vault_pass.txt
+
+To limit to a specific host (or pattern) add the `-l <hostname>` option to the command line.
+You can specify a group name (from the `hosts` file), or a full hostname.
+
+Remove your pub keys from the root account:
+
+    ssh root@hostname "rm ~/.ssh/authorized_keys"
+
+Now, you can follow the normal process for existing servers.
+
+### Existing Servers
+
+For subsequent runs of this (updating users, for instance), do the following:
+
+    ansible-playbook site.yml -i hosts-production --ask-sudo-pass --vault-password-file=.vault_pass.txt
+
+This will update all servers, *note that this may restart services* so don't do it to production servers.
+
+To limit to a specific host (or pattern) add the `-l <hostname>` option to the command line.
+You can specify a group name (from the `hosts` file), or a full hostname.
+
+## Testing with Vagrant
 
 In order to test any playbook using Vagrant, Download and Install it from [Vagrant Web Site]
 [Vagrant Web Site]:http://www.vagrantup.com/downloads.html

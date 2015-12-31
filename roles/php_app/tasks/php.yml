@@ -1,0 +1,16 @@
+- include_vars: 'newrelic.yml'
+
+- name: install PHP apt packages
+  apt:
+    pkg: '{{ item }}'
+    state: latest
+  with_items:
+   - libapache2-mod-php5
+   - php5-mysql
+
+- name: install NewRelic PHP module
+  apt:
+    pkg: newrelic-php5
+    state: latest
+  notify:
+    - Run New Relic Installer
