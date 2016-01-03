@@ -25,6 +25,24 @@
   sudo_user: "{{ item.username }}"
   with_items: create_users
 
+- name: Add robind zsh theme
+  template:
+    src: robind-theme.sh
+    dest: "/home/{{item.username}}/.oh-my-zsh/themes/robind.zsh-theme"
+    owner: "{{item.username}}"
+    group: "{{item.username}}"
+    mode: 0664
+  sudo: yes
+  sudo_user: "{{ item.username }}"
+  with_items: create_users
+
+- name: Set zsh theme
+  lineinfile:
+    dest: "/home/{{item.username}}/.zshrc"
+    line: ZSH_THEME="robind"
+    regexp: ZSH_THEME="robbyrussel"
+  with_items: create_users
+
 - name: Add/Update User SSH keys
   authorized_key: user="{{item.0.username}}" key="{{item.1}}"
   with_subelements:
