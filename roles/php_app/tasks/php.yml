@@ -15,3 +15,16 @@
     state: latest
   notify:
     - Run New Relic Installer
+
+- name: create custom PHP config
+  template:
+    src: rndsvc.ini
+    dest: "/etc/php5/mods-available/rndsvc.ini"
+    owner: root
+    group: root
+    mode: 0644
+  register: created_rndsvc_php_config
+
+- name: activate custom PHP config
+  shell: php5enmod rndsvc
+  when: created_rndsvc_php_config.changed
