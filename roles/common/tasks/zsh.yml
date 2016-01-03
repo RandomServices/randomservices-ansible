@@ -1,0 +1,7 @@
+- name: install ZSH
+  apt:
+    pkg: '{{ item }}'
+    state: latest
+  with_items:
+   - zsh
+   - wget
