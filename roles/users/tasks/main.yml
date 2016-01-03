@@ -19,6 +19,12 @@
   with_items: create_users
   tags: ['users','configuration']
 
+- name: Install oh-my-zsh
+  shell: sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+  sudo: yes
+  sudo_user: "{{ item.username }}"
+  with_items: create_users
+
 - name: Add/Update User SSH keys
   authorized_key: user="{{item.0.username}}" key="{{item.1}}"
   with_subelements:
