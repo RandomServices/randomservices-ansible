@@ -7,12 +7,7 @@ In order to use the tool please follow the [Installation instruction for Mac OSX
 
 ## Server Requirements
 
-Target servers to be installed should follow a basic configuration like this:
-
- - Distributor ID: Ubuntu
- - Description: Ubuntu 14.04 LTS
- - Release: 14.04
- - Codename: trusty
+This is intended for Ubuntu 14.04 and higher. It has been used with as high as 15.10.
 
 ## Hosts File
 
