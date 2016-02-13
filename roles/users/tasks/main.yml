@@ -1,63 +1,24 @@
 ---
 - include_vars: "users.yml"
 
-- name: Per-user group creation
-  group: name="{{item.username}}" gid="{{item.uid}}"
-  with_items: create_users
-  when: users_create_per_user_group
-  tags: ['users','configuration']
+- name: Install git and zsh 
+  apt: name=$item state=latest update_cache=yes
+  with_items:
+   - git
+   - git-core
 
-- name: Create/Update Users
-  user: name="{{item.username}}"
-        group="{{item.username if users_create_per_user_group else users_group}}"
-        groups="{{item.groups | join(',')}}"
-        shell={{item.shell if item.shell is defined else users_default_shell}}
-        comment="{{item.name}}"
-        uid="{{item.uid}}"
-        createhome="{{'yes' if users_create_homedirs else 'no'}}"
-        password="{{item.password}}"
-  with_items: create_users
-  tags: ['users','configuration']
-
-- name: Install oh-my-zsh
-  shell: sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-  sudo: yes
-  sudo_user: "{{ item.username }}"
-  with_items: create_users
-
-- name: Add robind zsh theme
-  template:
-    src: robind-theme.sh
-    dest: "/home/{{item.username}}/.oh-my-zsh/themes/robind.zsh-theme"
-    owner: "{{item.username}}"
-    group: "{{item.username}}"
-    mode: 0664
-  sudo: yes
-  sudo_user: "{{ item.username }}"
-  with_items: create_users
-
-- name: Set zsh theme
-  lineinfile:
-    dest: "/home/{{item.username}}/.zshrc"
-    line: ZSH_THEME="robind"
-    regexp: ZSH_THEME="robbyrussel"
-  with_items: create_users
-
-- name: Add/Update User SSH keys
-  authorized_key: user="{{item.0.username}}" key="{{item.1}}"
-  with_subelements:
-    - create_users
-    - ssh_key
-  tags: ['users','configuration']
+- include: "active_user.yml"
+  with_items: active_users
 
 - name: Remove Users
-  user: name="{{item.username}}" state=absent
+  user:
+    name: "{{item.username}}"
+    state: absent
   with_items: remove_users
-  tags: ['users','configuration']
 
 - name: Remove user groups
-  group: name="{{item.username}}" state=absent
+  group:
+    name: "{{item.username}}"
+    state: absent
   with_items: remove_users
   when: users_create_per_user_group
-  tags: ['groups','configuration']
-
