@@ -1,19 +1,8 @@
-# Server base - Ubuntu 14.04
-#
-# For first-time setup of servers, first add your SSH key to the root user:
-# ````ssh root@hostname "mkdir ~/.ssh && curl https://github.com/RobinDaugherty.keys > ~/.ssh/authorized_keys"````
-# and enter the root password for the server when prompted. Then run the following to log in as root:
-# ````ansible-playbook initial_setup.yml -i hosts -u root````
-# you can also add `-l hostname` to limit to a specific host.
-# and remove your pub keys:
-# ````ssh root@hostname "rm ~/.ssh/authorized_keys"````
-#
-# For subsequent runs of this (updating users, for instance), do the following:
-# ````ansible-playbook initial_setup.yml -i hosts --sudo````
+# Used only for initial setup, which is why the `root` user is specified.
 
 - hosts: all
-  sudo: true
+  remote_user: root
   roles:
-    - common
     - groups
     - users
+    - common

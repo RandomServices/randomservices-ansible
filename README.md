@@ -33,26 +33,26 @@ Place the passphrase in the `.vault_pass.txt` file so you can specify it in the 
 Never commit the passphrase! If you use this filename it will be ignored by git.
 
 
-### New Servers
+#### New Servers
 
-This process adds our users to the machines, applies, package updates, and prepares the machine for use.
+This process adds our users and applies package updates.
+It runs as the root user because no SSH keys have been placed on the machine yet.
 
-For first-time setup of servers, first add your SSH key to the root user (not needed for AWS):
+Once this step is complete, Ansible will no longer be able to use the root user .
 
-    ssh root@hostname "mkdir ~/.ssh; curl https://github.com/RobinDaugherty.keys > ~/.ssh/authorized_keys"
+For first-time setup of servers on Linode, you'll need to log in as root with the password.
 
-and enter the root password for the server when prompted. Then run the following to log in as root (or ubuntu on AWS):
+    ansible-playbook initial_setup.yml -i hosts-production --ask-pass
 
-    ansible-playbook initial_setup.yml -i hosts-production -u root --vault-password-file=.vault_pass.txt
+Enter the root password for the server(s) when prompted.
 
-To limit to a specific host (or pattern) add the `-l <hostname>` option to the command line.
-You can specify a group name (from the `hosts` file), or a full hostname.
+You can also add `-l hostname.mlw2.net` to limit to a specific host, or `-l host-type`.
 
-Remove your pub keys from the root account:
+If on a host that has an SSH key applied, leave off the `--ask-pass`.
 
-    ssh root@hostname "rm ~/.ssh/authorized_keys"
-
-Now, you can follow the normal process for existing servers.
+One of the changes made by this run is that password authentication will be permanently disabled.
+So you can only do this once.
+Subsequent runs must use your account and SSH credentials.
 
 ### Existing Servers
 

@@ -1,4 +1,9 @@
 # http://docs.ansible.com/playbooks_best_practices.html#top-level-playbooks-are-separated-by-role
 
-- include: initial_setup.yml
+- hosts: all
+  sudo: true
+  roles:
+    - groups
+    - users
+    - common
 - include: web.yml
