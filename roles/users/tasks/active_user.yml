@@ -16,7 +16,7 @@
     password: "{{item.password}}"
 
 - name: Clone oh-my-zsh repo
-  become: "{{item.username}}"
+  become_user: "{{item.username}}"
   git:
     repo: https://github.com/robbyrussell/oh-my-zsh.git
     dest: "/home/{{item.username}}/.oh-my-zsh"
@@ -27,19 +27,19 @@
   register: zshrc
 
 - name: Copy .zshrc from oh-my-zsh
-  become: "{{item.username}}"
+  become_user: "{{item.username}}"
   command: "cp -a /home/{{item.username}}/.oh-my-zsh/templates/zshrc.zsh-template /home/{{item.username}}/.zshrc" 
   when: zshrc.stat.exists == false
 
 - name: Add robind zsh theme
-  become: "{{item.username}}"
+  become_user: "{{item.username}}"
   template:
     src: robind-theme.sh
     dest: "/home/{{item.username}}/.oh-my-zsh/themes/robind.zsh-theme"
     mode: 0664
 
 - name: Set zsh theme to robind
-  become: "{{item.username}}"
+  become_user: "{{item.username}}"
   lineinfile:
     dest: "/home/{{item.username}}/.zshrc"
     line: ZSH_THEME="robind"

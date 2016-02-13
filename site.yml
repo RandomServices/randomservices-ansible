@@ -1,7 +1,7 @@
 # http://docs.ansible.com/playbooks_best_practices.html#top-level-playbooks-are-separated-by-role
 
 - hosts: all
-  sudo: true
+  become: true
   roles:
     - groups
     - users

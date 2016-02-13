@@ -1,6 +1,6 @@
 
 - hosts: web
-  sudo: true
+  become: true
   roles:
     - { role: ruby_app, ruby_version: 'ruby_2.2.3', app_to_deploy: 'robindaugherty-www' }
     - php_app
