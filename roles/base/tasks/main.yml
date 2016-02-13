@@ -2,6 +2,5 @@
 - include: logrotate.yml
 - include: sysctl.yml
 - include: root_ca.yml
-- include: newrelic.yml
 - include: zsh.yml
 - include: ssh.yml
