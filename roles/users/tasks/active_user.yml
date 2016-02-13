@@ -43,7 +43,7 @@
   lineinfile:
     dest: "/home/{{item.username}}/.zshrc"
     line: ZSH_THEME="robind"
-    regexp: ZSH_THEME="robbyrussel"
+    regexp: "ZSH_THEME="
 
 - name: Add/Update User SSH keys
   authorized_key:
