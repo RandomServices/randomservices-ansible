@@ -1,0 +1,4 @@
+- name: set /etc/hostname
+  template: src=hostname.conf dest=/etc/hostname owner=root group=root mode=0644
+  notify:
+    - set hostname

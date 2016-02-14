@@ -3,6 +3,7 @@
 - hosts: all
   remote_user: root
   roles:
+    - hostname
     - groups
     - users
     - base
