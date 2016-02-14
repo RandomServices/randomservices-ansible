@@ -1,2 +1,2 @@
 - name: set hostname
-  command: "/bin/hostname {{ ansible_fqdn }}"
+  command: "/bin/hostname {{ inventory_hostname }}"
