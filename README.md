@@ -32,7 +32,6 @@ So for example: `EDITOR='mate -w' ansible-vault edit roles/web_server/vars/ssl.y
 Place the passphrase in the `.vault_pass.txt` file so you can specify it in the command line.
 Never commit the passphrase! If you use this filename it will be ignored by git.
 
-
 #### New Servers
 
 This process adds our users and applies package updates.
@@ -53,6 +52,19 @@ If on a host that has an SSH key applied, leave off the `--ask-pass`.
 One of the changes made by this run is that password authentication will be permanently disabled.
 So you can only do this once.
 Subsequent runs must use your account and SSH credentials.
+
+##### Ubuntu 15.10
+
+For some fucking reason, they removed Python 2 completely from 15.10.
+Apparently some providers (like OVH) add it to their deployment image.
+
+And it's not in the Ubuntu repo.
+So we have to download the fucking packages manually and install them. Manually.
+
+    wget http://security.ubuntu.com/ubuntu/pool/main/p/python2.7/python2.7_2.7.10-4ubuntu1_amd64.deb
+    wget http://security.ubuntu.com/ubuntu/pool/main/p/python2.7/python2.7-minimal_2.7.10-4ubuntu1_amd64.deb
+    dpkg --install python2.7*
+    rm python2.7*
 
 ### Existing Servers
 
