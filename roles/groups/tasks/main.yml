@@ -3,10 +3,10 @@
 
 - name: Create groups
   group: name="{{item.name}}" gid="{{item.gid}}"
-  with_items: create_groups
+  with_items: "{{create_groups}}"
   tags: ['groups','configuration']
 
 - name: Remove groups
   group: name="{{item.name}}" state=absent
-  with_items: remove_groups
+  with_items: "{{remove_groups}}"
   tags: ['groups','configuration']

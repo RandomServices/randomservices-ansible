@@ -2,23 +2,26 @@
 - include_vars: "users.yml"
 
 - name: Install git and zsh 
-  apt: name=$item state=latest update_cache=yes
+  apt:
+    name: "{{item}}"
+    state: latest
+    update_cache: yes
   with_items:
    - git
    - git-core
 
 - include: "active_user.yml"
-  with_items: active_users
+  with_items: "{{active_users}}"
 
 - name: Remove Users
   user:
     name: "{{item.username}}"
     state: absent
-  with_items: remove_users
+  with_items: "{{remove_users}}"
 
 - name: Remove user groups
   group:
     name: "{{item.username}}"
     state: absent
-  with_items: remove_users
+  with_items: "{{remove_users}}"
   when: users_create_per_user_group
