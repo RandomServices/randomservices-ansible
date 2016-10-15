@@ -4,8 +4,9 @@
   become: true
   roles:
     - hostname
+    - base
+    - ssh
     - groups
     - users
-    - base
     - general
 - include: web.yml

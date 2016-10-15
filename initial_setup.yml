@@ -4,7 +4,8 @@
   remote_user: root
   roles:
     - upgrade
+    - base
     - hostname
     - groups
     - users
-    - base
+    - ssh
