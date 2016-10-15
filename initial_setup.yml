@@ -4,7 +4,7 @@
   remote_user: root
   roles:
     - upgrade
-    - base
+    - common
     - hostname
     - groups
     - users

@@ -4,7 +4,7 @@
   become: true
   roles:
     - hostname
-    - base
+    - common
     - ssh
     - groups
     - users
