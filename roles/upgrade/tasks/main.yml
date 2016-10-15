@@ -1,0 +1,10 @@
+- name: update Aptitude cache
+  apt: update_cache=yes
+
+- name: aptitude
+  apt:
+    pkg: aptitude
+    state: latest
+
+- name: upgrade Aptitude packages
+  apt: upgrade=full

@@ -1,13 +1,38 @@
 - name: update Aptitude cache
   apt: update_cache=yes
 
-- name: upgrade Aptitude packages
-  apt: upgrade=safe
+- name: aptitude
+  apt:
+    pkg: aptitude
+    state: latest
 
-- name: install common apt packages
+- name: htop
+  apt:
+    pkg: htop
+    state: latest
+
+- name: vim
+  apt:
+    pkg: vim
+    state: latest
+
+- name: git
   apt:
     pkg: '{{ item }}'
     state: latest
   with_items:
-   - htop
-   - ntp
+   - git
+   - git-core
+
+- name: haveged for moar entropy
+  apt:
+    pkg: haveged
+    state: latest
+
+- name: OpenSSH
+  apt:
+    pkg: '{{ item }}'
+    state: latest
+  with_items:
+   - openssh-client
+   - openssh-server
