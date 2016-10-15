@@ -8,5 +8,5 @@
     - ssh
     - groups
     - users
-    - general
+    - new_relic
 - include: web.yml
