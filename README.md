@@ -1,38 +1,47 @@
 # rndsvc-ansible
 
 We are using Ansible to configure servers.
+
+## Prerequisites
+
 In order to use the tool please follow the [Installation instruction for Mac OSX]
 
 [Installation instruction for Mac OSX]:http://docs.ansible.com/intro_installation.html#latest-releases-via-homebrew-mac-osx/
 
-## Server Requirements
+### Hosts File
 
-This is intended for Ubuntu 14.04 and higher. It has been used with as high as 15.10.
+The target devices are listed in a hosts file such as `hosts-production`.
 
-## Hosts File
+`hosts-production` contains the up-to-date list of known production devices.
+When a device is added or removed, commit this file with the changes immediately.
 
-The target servers should be configured in the `hosts-production` file.
-When a server is added or removed, commit this file with the changes immediately.
+You should create a `hosts-dev` for testing changes to Ansible, and the devices placed there are for your own development.
 
-By default when running ansible, all servers will be updated.
-To limit to a specific host (or pattern) add the `-l <hostname>` option to the command line.
-
-## Running Ansible
+By default when running ansible, all servers in a specified "hosts" file will be updated.
+To limit to a specific host, host group, or hostname pattern add the `-l <hostname>` option to the command line.
 
 ### Encrypted files using Vault
 
-When we store information that must be encrypted in this project, it is stored using Ansible's Vault feature, which encrypts a YAML file. So the file must be in the `vars` folder for the role that uses it.
+When data such as passwords or encryption keys are needed by Ansible, we need to store that information in this repo, but we still need that data to remain private.
+We do this by encrypting the file(s) that contain that data using Ansible Vault.
 
-The vault password is something that we share in an out-of-band way. It is used as the encryption key for editing these files and for running Ansible commands.
+As with other variables needed in Ansible, these are stored in yml files in the `vars/` folder of the role in which they are used.
+The data, for example a password string, is stored as a variable with a name.
+Then the variable can be used in the Ansible tasks.
 
-The [Ansible documentation](http://docs.ansible.com/playbooks_vault.html#creating-encrypted-files) is pretty straightforward. However, if your editor is TextMate, you need to set `$EDITOR='mate -w'` so that the command will wait for the editor to finish.
+Place the passphrase in the `.vault_pass.txt` file.
+That file will be ignored by git. Never commit the passphrase to git!
 
-So for example: `EDITOR='mate -w' ansible-vault edit roles/web_server/vars/ssl.yml` will prompt you for the passphrase, decrypt the file, wait for you to edit and close the file, then encrypt the new contents.
+The [Ansible documentation](http://docs.ansible.com/playbooks_vault.html#creating-encrypted-files) is pretty straightforward.
+If you use use TextMate, you can set `EDITOR='mate -w'` so that the command will wait for the editor to finish.
 
-Place the passphrase in the `.vault_pass.txt` file so you can specify it in the command line.
-Never commit the passphrase! If you use this filename it will be ignored by git.
+So for example, to edit an existing Vault-encrypted file, wait for you to edit and close the file, then encrypt the new contents:
 
-#### New Servers
+    EDITOR='mate -w' ansible-vault edit --vault-password-file=.vault_pass.txt roles/web_server/vars/ssl.yml
+
+## Running Ansible
+
+### New Servers
 
 This process adds our users and applies package updates.
 It runs as the root user because no SSH keys have been placed on the machine yet.
@@ -41,30 +50,15 @@ Once this step is complete, Ansible will no longer be able to use the root user 
 
 For first-time setup of servers on Linode, you'll need to log in as root with the password.
 
-    ansible-playbook initial_setup.yml -i hosts-production --ask-pass
+    ansible-playbook initial_setup.yml -i hosts-production --vault-password-file=.vault_pass.txt --ask-pass
 
-Enter the root password for the server(s) when prompted.
+Enter the root password for the server(s) when prompted. If on a host that has an SSH key applied for the root user, leave off the `--ask-pass`.
 
-You can also add `-l hostname.mlw2.net` to limit to a specific host, or `-l host-type`.
+You can also add `-l hostname` to limit to a specific host, or `-l host-type`.
 
-If on a host that has an SSH key applied, leave off the `--ask-pass`.
-
-One of the changes made by this run is that password authentication will be permanently disabled.
+After `initial_setup`, password authentication will be disabled, and root login over SSH will also be disabled.
 So you can only do this once.
-Subsequent runs must use your account and SSH credentials.
-
-##### Ubuntu 15.10
-
-For some fucking reason, they removed Python 2 completely from 15.10.
-Apparently some providers (like OVH) add it to their deployment image.
-
-And it's not in the Ubuntu repo.
-So we have to download the fucking packages manually and install them. Manually.
-
-    wget http://security.ubuntu.com/ubuntu/pool/main/p/python2.7/python2.7_2.7.10-4ubuntu1_amd64.deb
-    wget http://security.ubuntu.com/ubuntu/pool/main/p/python2.7/python2.7-minimal_2.7.10-4ubuntu1_amd64.deb
-    dpkg --install python2.7*
-    rm python2.7*
+Subsequent runs must use _your_ user account and SSH key, and Ansible will need your password to `sudo` on the server.
 
 ### Existing Servers
 
@@ -72,34 +66,7 @@ For subsequent runs of this (updating users, for instance), do the following:
 
     ansible-playbook site.yml -i hosts-production --ask-sudo-pass --vault-password-file=.vault_pass.txt
 
-This will update all servers, *note that this may restart services* so don't do it to production servers.
+This will update all servers, *note that this may restart services*.
 
 To limit to a specific host (or pattern) add the `-l <hostname>` option to the command line.
 You can specify a group name (from the `hosts` file), or a full hostname.
-
-## Testing with Vagrant
-
-In order to test any playbook using Vagrant, Download and Install it from [Vagrant Web Site]
-[Vagrant Web Site]:http://www.vagrantup.com/downloads.html
-and you would also need [Virtualbox] download and install it.
-[Virtualbox]:https://www.virtualbox.org/wiki/Downloads
-
-Change Vagrantfile configuration file in the line for ansible.playbook option in order to add the playbook to test, like:
-
-    ansible.playbook = "initial_setup.yml"
-
-Note: Just for testing purposes, you would need to change the hosts: configuration variable in the playbook to test, use "all".
-
-Run vagrant to build the virtual machine and run the playbook for the first time with:
-
-    vagrant up
-
-To rerun the same playbook after the virtual machine has been built use:
-
-    vagrant provision
-
-You can use:
-
-    VirtualBox
-
-Command to stop, delete or restart the virtual machine.
