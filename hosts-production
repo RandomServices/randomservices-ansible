@@ -1,11 +1,11 @@
 [web]
 podkayne.rndsvc.net
 
-[other]
+[minecraft]
 crafty.rndsvc.net
 
 [web:vars]
 ansible_python_interpreter=/usr/bin/python2.7
 
-[other:vars]
+[minecraft:vars]
 ansible_python_interpreter=/usr/bin/python2.7

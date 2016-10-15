@@ -1,0 +1,7 @@
+- name: enable minecraft service
+  become: true
+  shell: systemctl daemon-reload; systemctl enable minecraft.service
+
+- name: restart minecraft service
+  become: true
+  shell: systemctl restart minecraft.service

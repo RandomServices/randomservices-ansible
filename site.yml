@@ -10,3 +10,4 @@
     - users
     - new_relic
 - include: web.yml
+- include: minecraft.yml
