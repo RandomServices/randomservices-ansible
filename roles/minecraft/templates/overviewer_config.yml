@@ -1,0 +1,35 @@
+worlds["Farming"] = "/var/minecraft/farming"
+
+renders["farming_overworld"] = {
+    "world": "Farming",
+    "title": "Farming Overworld",
+    "rendermode": "normal",
+    "dimension": "overworld",
+}
+renders["farming_biomes"] = {
+    "world": "Farming",
+    "title": "Farming Biomes",
+    "rendermode": [ClearBase(), BiomeOverlay()],
+    "dimension": "overworld",
+    'overlay': ['farming_overworld'],
+}
+renders["farming_cave"] = {
+    "world": "Farming",
+    "title": "Farming Cave",
+    "rendermode": "cave",
+    "dimension": "overworld",
+}
+renders["farming_nether"] = {
+    "world": "Farming",
+    "title": "Farming Nether",
+    "rendermode": "nether_lighting",
+    "dimension": "nether",
+}
+renders["farming_end"] = {
+    "world": "Farming",
+    "title": "Farming End",
+    "rendermode": "normal",
+    "dimension": "end",
+}
+
+outputdir = "/var/www/minecraft-overviewer"

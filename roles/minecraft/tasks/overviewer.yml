@@ -1,0 +1,85 @@
+- name: overviewer build requirements
+  apt:
+    name: "{{item}}"
+    state: latest
+  with_items:
+  - build-essential
+  - python-imaging
+  - python-dev
+  - python-numpy
+
+- name: overviewer git repository
+  git:
+    repo: https://github.com/overviewer/Minecraft-Overviewer.git
+    dest: /usr/local/Minecraft-Overviewer
+  register: overviewer_source
+
+- name: overviewer build
+  shell: python setup.py build
+  args:
+    chdir: /usr/local/Minecraft-Overviewer
+  when: overviewer_source.changed
+
+- name: overviewer group
+  group:
+    name: minecraft_overviewer
+    gid: 701
+
+- name: overviewer user
+  user:
+    name: minecraft_overviewer
+    group: minecraft_overviewer
+    shell: /bin/false
+    uid: 701
+    createhome: yes
+
+- name: overviewer minecraft client folder
+  file:
+    dest: /home/minecraft_overviewer/.minecraft
+    recurse: yes
+    state: directory
+
+- name: overviewer minecraft clients
+  file:
+    dest: /home/minecraft_overviewer/.minecraft/versions
+    src: /var/minecraft/client
+    state: link
+
+- name: overviewer config
+  template:
+    src: overviewer_config.yml
+    dest: /etc/minecraft-overviewer.yml
+
+- name: overviewer www folder
+  file:
+    dest: /var/www/minecraft-overviewer
+    state: directory
+    owner: minecraft_overviewer
+    group: minecraft_overviewer
+
+- name: Apache
+  apt:
+    pkg: apache2
+    state: latest
+  register: installed_apache
+
+- name: Remove default site
+  when: installed_apache.changed
+  shell: a2dissite 000-default
+
+- name: Apache overviewer site config
+  template:
+    src: overviewer_apache.conf
+    dest: /etc/apache2/sites-available/minecraft_overviewer.conf
+  register: overviewer_apache_site
+  notify: restart Apache server
+
+- name: enable Apache overviewer site
+  when: overviewer_apache_site.changed
+  shell: a2ensite minecraft_overviewer
+  notify: restart Apache server
+
+- name: overviewer cron job
+  template:
+    src: overviewer.cron
+    dest: /etc/cron.d/minecraft-overviewer

@@ -1,0 +1,1 @@
+0 * * * *   minecraft_overviewer    cd /usr/local/Minecraft-Overviewer && ./overviewer.py -c /etc/minecraft-overviewer.yml

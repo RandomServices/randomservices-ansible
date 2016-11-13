@@ -5,3 +5,8 @@
 - name: restart minecraft service
   become: true
   shell: systemctl restart minecraft.service
+
+- name: restart Apache server
+  become: true
+  service: name=apache2 state=restarted
+  ignore_errors: yes
