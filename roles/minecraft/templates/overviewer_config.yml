@@ -33,3 +33,4 @@ renders["farming_end"] = {
 }
 
 outputdir = "/var/www/minecraft-overviewer"
+google_api_key = "{{google_maps_api_key}}"
