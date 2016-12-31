@@ -33,13 +33,28 @@
   command: "cp -a /home/{{item.username}}/.oh-my-zsh/templates/zshrc.zsh-template /home/{{item.username}}/.zshrc" 
   when: zshrc.stat.exists == false
 
+- name: custom themes directory
+  become: true
+  become_user: "{{item.username}}"
+  file:
+    path: "/home/{{item.username}}/.oh-my-zsh/custom/themes"
+    state: directory
+    recurse: yes
+
 - name: Add robind zsh theme
   become: true
   become_user: "{{item.username}}"
-  template:
-    src: robind-theme.sh
-    dest: "/home/{{item.username}}/.oh-my-zsh/themes/robind.zsh-theme"
+  get_url:
+    url: https://raw.githubusercontent.com/RobinDaugherty/robind-zsh-theme/master/robind.zsh-theme
+    dest: "/home/{{item.username}}/.oh-my-zsh/custom/themes/robind.zsh-theme"
     mode: 0664
+
+- name: Remove old robind zsh theme
+  become: true
+  become_user: "{{item.username}}"
+  file:
+    dest: "/home/{{item.username}}/.oh-my-zsh/themes/robind.zsh-theme"
+    state: absent
 
 - name: Set zsh theme to robind
   become: true
