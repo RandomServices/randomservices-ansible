@@ -1,5 +1,3 @@
-- include_vars: '{{ app_to_deploy }}_deployment_key.yml'
-
 - name: 'create directory to hold SSH keys for {{ app_to_deploy }} deployment'
   file:
     name: '/home/{{ app_to_deploy }}/.ssh/keys'
