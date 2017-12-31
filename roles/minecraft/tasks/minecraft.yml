@@ -10,9 +10,16 @@
     update_cache: yes
 
 - name: JDK
+  become: true
   apt:
-    name: openjdk-7-jdk
-    state: latest
+    name: openjdk-8-jre-headless
+    state: present
+
+- name: correct java version
+  become: true
+  alternatives:
+    name: java
+    path: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
 
 - name: download Minecraft launcher manifest
   get_url:
