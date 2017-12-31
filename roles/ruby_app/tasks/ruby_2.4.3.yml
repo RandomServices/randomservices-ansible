@@ -18,7 +18,3 @@
 - name: update Rubygems for Ruby 2.4.3
   shell: RBENV_ROOT=/usr/local/rbenv RBENV_VERSION=2.4.3 /usr/local/rbenv/bin/rbenv exec gem update --system
   when: installed_mri.changed
-
-- name: install bundler for Ruby 2.4.3
-  shell: RBENV_ROOT=/usr/local/rbenv RBENV_VERSION=2.4.3 /usr/local/rbenv/bin/rbenv exec gem install bundler
-  when: installed_mri.changed
