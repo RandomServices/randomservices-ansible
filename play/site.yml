@@ -11,4 +11,5 @@
     - groups
     - users
 - include: web.yml
+- include: releasemaker.yml
 - include: minecraft.yml

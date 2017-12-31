@@ -1,0 +1,12 @@
+# Used only for initial setup, which is why the `root` user is specified.
+
+- hosts: all
+  remote_user: ubuntu
+  become: true
+  roles:
+    - upgrade
+    - common
+    - hostname
+    - groups
+    - users
+    - ssh
