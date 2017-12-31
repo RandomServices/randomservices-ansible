@@ -1,0 +1,14 @@
+- name: install fail2ban
+  apt:
+    pkg: fail2ban
+    state: latest
+
+- name: rsyslog config for fail2ban logs
+  template:
+    src: rsyslog-fail2ban.conf
+    dest: /etc/rsyslog.d/51-fail2ban.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - rsyslog needs to be reloaded

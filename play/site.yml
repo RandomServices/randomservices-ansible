@@ -6,8 +6,9 @@
     - hostname
     - common
     - ssh
+    - newrelic_infra
+    - fail2ban
     - groups
     - users
-    - new_relic
 - include: web.yml
 - include: minecraft.yml

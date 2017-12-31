@@ -4,20 +4,24 @@ We are using Ansible to configure servers.
 
 ## Prerequisites
 
-In order to use the tool please follow the [Installation instruction for Mac OSX]
+Ansible 2.3 or higher is required.
 
-[Installation instruction for Mac OSX]:http://docs.ansible.com/intro_installation.html#latest-releases-via-homebrew-mac-osx/
+1. Install Ansible following the [Installation instructions].
 
-### Hosts File
+1. Get the Ansible vault password from the 1Password vault. Place the passphrase in a file named `.vault_pass.txt` (which is specifically ignored by git).
 
-The target devices are listed in a hosts file such as `hosts-production`.
+[Installation instructions]:http://docs.ansible.com/intro_installation.html
 
-`hosts-production` contains the up-to-date list of known production devices.
+### Inventory File
+
+The target devices are listed in a hosts file such as `inventory`.
+
+`inventory` contains the up-to-date list of known production devices.
 When a device is added or removed, commit this file with the changes immediately.
 
-You should create a `hosts-dev` for testing changes to Ansible, and the devices placed there are for your own development.
+You should create a `inventory-dev` for testing changes to Ansible, and the devices placed there are for your own development.
 
-By default when running ansible, all servers in a specified "hosts" file will be updated.
+By default when running ansible, all servers in a specified inventory file will be updated.
 To limit to a specific host, host group, or hostname pattern add the `-l <hostname>` option to the command line.
 
 ### Encrypted files using Vault
@@ -50,9 +54,9 @@ Once this step is complete, Ansible will no longer be able to use the root user 
 
 For first-time setup of servers on Linode, you'll need to log in as root with the password.
 
-    ansible-playbook initial_setup.yml -i hosts-production --vault-password-file=.vault_pass.txt --ask-pass
+    ansible-playbook play/initial_setup.yml -i hosts-production
 
-Enter the root password for the server(s) when prompted. If on a host that has an SSH key applied for the root user, leave off the `--ask-pass`.
+Enter the root password for the server(s) when prompted. If on a host does not have your SSH key applied for the root user, add `--ask-pass`.
 
 You can also add `-l hostname` to limit to a specific host, or `-l host-type`.
 
@@ -64,7 +68,7 @@ Subsequent runs must use _your_ user account and SSH key, and Ansible will need 
 
 For subsequent runs of this (updating users, for instance), do the following:
 
-    ansible-playbook site.yml -i hosts-production --ask-sudo-pass --vault-password-file=.vault_pass.txt
+    ansible-playbook play/site.yml --ask-sudo-pass
 
 This will update all servers, *note that this may restart services*.
 

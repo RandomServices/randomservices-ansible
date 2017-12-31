@@ -1,0 +1,14 @@
+[web]
+podkayne.rndsvc.net
+
+[releasemaker]
+hazel.rndsvc.net
+
+[minecraft]
+
+[btc]
+btc01.rndsvc.net
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python2.7
+environment_type=production

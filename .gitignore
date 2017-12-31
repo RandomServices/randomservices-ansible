@@ -1,1 +1,8 @@
+inventory-dev
 .vault_pass.txt
+.linode_access_token
+*.retry
+tmp/
+log/
+.DS_Store
+.galaxy-roles

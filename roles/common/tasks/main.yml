@@ -1,5 +1,6 @@
 - include: aptitude.yml
 - include: logrotate.yml
+- include: acl.yml
 - include: sysctl.yml
 - include: root_ca.yml
 - include: zsh.yml
