@@ -3,8 +3,7 @@
   become: true
   roles:
     - nginx
-    -
-      role: ruby_app
+    - role: ruby_app
       ruby_version: 'ruby_2.4.3'
       app_name: 'releasemaker'
       app_web_name: 'www.releasemaker.com releasemaker.com'

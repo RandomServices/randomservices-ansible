@@ -1,0 +1,18 @@
+---
+- name: SSL certificate
+  template:
+    src: ssl_cert.pem
+    dest: /etc/nginx/ssl/{{ app_name }}.crt
+    owner: root
+    group: root
+    mode: 0640
+  notify: nginx should be reloaded
+
+- name: SSL key
+  template:
+    src: ssl_key.pem
+    dest: /etc/nginx/ssl/{{ app_name }}.key
+    owner: root
+    group: root
+    mode: 0640
+  notify: nginx should be reloaded

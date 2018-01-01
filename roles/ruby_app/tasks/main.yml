@@ -5,4 +5,5 @@
 - include: app_command.yml
 - include: logrotate.yml
 - include: nginx.yml
+- include: ssl.yml
 - include: systemd.yml

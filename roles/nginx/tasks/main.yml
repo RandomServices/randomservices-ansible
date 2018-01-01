@@ -9,3 +9,11 @@
   template: src=etc-default-nginx.sh dest=/etc/default/nginx owner=root group=root mode=0755
   notify:
     - nginx should be restarted
+
+- name: ssl folder
+  file:
+    state: directory
+    path: /etc/nginx/ssl
+    owner: root
+    group: root
+    mode: 660
