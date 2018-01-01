@@ -7,6 +7,22 @@
     group: root
     mode: 0755
 
+- name: app environment setup
+  template:
+    src: app-env.sh 
+    dest: /home/{{ app_name }}/.app-env.sh
+    owner: root 
+    group: root 
+    mode: 0644
+
+- name: environment setup in .bashrc
+  lineinfile:
+    dest: "/home/{{ app_name }}/.bashrc"
+    line: ". ~/.app-env.sh"
+    insertbefore: "If not running interactively, don't do anything"
+  # In fact, it's incredibly important for Capistrano that this file be run regardless of
+  # whether the session is interactive.
+
 - name: 'cd' in .bashrc
   lineinfile:
     dest: "/home/{{ app_name }}/.bashrc"
