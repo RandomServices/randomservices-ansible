@@ -17,7 +17,7 @@
   notify:
     - Run New Relic Installer
 
-- name: create custom PHP config
+- name: custom PHP config
   template:
     src: rndsvc.ini
     dest: "/etc/php5/mods-available/rndsvc.ini"

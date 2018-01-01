@@ -7,7 +7,7 @@
     group: root
     mode: 0755
 
-- name: "add 'cd' to the app .bashrc"
+- name: 'cd' in .bashrc
   lineinfile:
     dest: "/home/{{ app_name }}/.bashrc"
     line: "cd /var/www/{{ app_name }}/current"

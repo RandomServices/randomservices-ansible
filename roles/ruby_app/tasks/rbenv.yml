@@ -20,7 +20,7 @@
     repo: https://github.com/sstephenson/rbenv.git
     dest: /usr/local/rbenv
 
-- name: create rbenv profile initializer
+- name: rbenv profile initializer
   template: src=profile-rbenv.sh dest=/etc/profile.d/rbenv.sh owner=root group=root mode=0644
 
 - name: git clone ruby-build
