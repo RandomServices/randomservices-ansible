@@ -1,5 +1,7 @@
 
 - hosts: web
   become: true
+  vars_files:
+    - vars/robindaugherty-web.yml
   roles:
     - { role: ruby_app, ruby_version: 'ruby_2.2.3', app_name: 'robindaugherty-www' }

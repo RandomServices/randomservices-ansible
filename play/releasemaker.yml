@@ -1,6 +1,8 @@
 
 - hosts: releasemaker
   become: true
+  vars_files:
+    - vars/releasemaker.yml
   roles:
     - nginx
     - role: ruby_app
