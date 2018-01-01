@@ -10,6 +10,7 @@
     - fail2ban
     - groups
     - users
+- include: finch.yml
 - include: releasemaker.yml
 - include: robindaugherty-web.yml
 - include: minecraft.yml
