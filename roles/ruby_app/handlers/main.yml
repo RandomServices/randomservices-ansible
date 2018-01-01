@@ -8,8 +8,5 @@
 - name: system daemons should be reloaded
   command: systemctl daemon-reload
 
-- name: socket should be restarted
-  service: name={{ app_to_deploy }}.socket state=restarted
-
 - name: app should be restarted
   service: name={{ app_to_deploy }}.service state=restarted
