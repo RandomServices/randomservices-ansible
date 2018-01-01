@@ -2,4 +2,4 @@
 - hosts: web
   become: true
   roles:
-    - { role: ruby_app, ruby_version: 'ruby_2.2.3', app_to_deploy: 'robindaugherty-www' }
+    - { role: ruby_app, ruby_version: 'ruby_2.2.3', app_name: 'robindaugherty-www' }

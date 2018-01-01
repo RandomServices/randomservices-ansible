@@ -1,13 +1,13 @@
 
-- name: "create {{ app_to_deploy }} command"
+- name: "create {{ app_name }} command"
   template:
     src: app.sh
-    dest: "/usr/local/bin/{{ app_to_deploy }}"
+    dest: "/usr/local/bin/{{ app_name }}"
     owner: root
     group: root
     mode: 0755
 
 - name: "add 'cd' to the app .bashrc"
   lineinfile:
-    dest: "/home/{{ app_to_deploy }}/.bashrc"
-    line: "cd /var/www/{{ app_to_deploy }}/current"
+    dest: "/home/{{ app_name }}/.bashrc"
+    line: "cd /var/www/{{ app_name }}/current"

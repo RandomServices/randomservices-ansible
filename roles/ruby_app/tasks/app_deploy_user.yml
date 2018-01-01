@@ -1,24 +1,24 @@
-- name: 'create directory to hold SSH keys for {{ app_to_deploy }} deployment'
+- name: 'create directory to hold SSH keys for {{ app_name }} deployment'
   file:
-    name: '/home/{{ app_to_deploy }}/.ssh/keys'
+    name: '/home/{{ app_name }}/.ssh/keys'
     state: directory
 
-- name: 'download ssh keys for {{ app_to_deploy }} deployment'
+- name: 'download ssh keys for {{ app_name }} deployment'
   get_url:
-    dest: '/home/{{ app_to_deploy }}/.ssh/keys'
+    dest: '/home/{{ app_name }}/.ssh/keys'
     url: '{{ item }}'
   with_items:
     - https://github.com/RobinDaugherty.keys
 
-- name: 'place CircleCI ssh key for {{ app_to_deploy }} deployment'
+- name: 'place CircleCI ssh key for {{ app_name }} deployment'
   copy:
-    content: '{{ deployment_key }}'
-    dest: '/home/{{ app_to_deploy }}/.ssh/keys/deployment'
+    content: '{{ app.deployment_key }}'
+    dest: '/home/{{ app_name }}/.ssh/keys/deployment'
 
-- name: 'assemble ssh keys for {{ app_to_deploy }} deployment'
+- name: 'assemble ssh keys for {{ app_name }} deployment'
   assemble:
-    dest: '/home/{{ app_to_deploy }}/.ssh/authorized_keys'
-    src: '/home/{{ app_to_deploy }}/.ssh/keys'
+    dest: '/home/{{ app_name }}/.ssh/authorized_keys'
+    src: '/home/{{ app_name }}/.ssh/keys'
     owner: root
     group: root
     mode: 0644

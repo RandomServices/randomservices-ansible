@@ -9,4 +9,4 @@
   command: systemctl daemon-reload
 
 - name: app should be restarted
-  service: name={{ app_to_deploy }}.service state=restarted
+  service: name={{ app_name }}.service state=restarted

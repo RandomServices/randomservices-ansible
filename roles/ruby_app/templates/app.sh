@@ -1,3 +1,3 @@
 #! /bin/sh
 
-sudo -u {{ app_to_deploy }} -i
+sudo -u {{ app_name }} -i

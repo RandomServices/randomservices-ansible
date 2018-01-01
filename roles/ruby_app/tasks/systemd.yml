@@ -2,7 +2,7 @@
 - name: app service
   template:
     src: systemd-app.conf 
-    dest: /etc/systemd/system/{{app_to_deploy}}.service
+    dest: /etc/systemd/system/{{app_name}}.service
     owner: root
     group: root
     mode: 0644

@@ -1,7 +1,7 @@
 - name: "configure logrotate for app"
   template:
     src=logrotate.conf
-    dest=/etc/logrotate.d/{{ app_to_deploy }}
+    dest=/etc/logrotate.d/{{ app_name }}
     owner=root
     group=root
     mode=0644

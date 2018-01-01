@@ -1,7 +1,7 @@
 - name: nginx site config
   template:
     src: nginx-site.conf 
-    dest: /etc/nginx/sites-available/{{app_to_deploy}}.conf 
+    dest: /etc/nginx/sites-available/{{app_name}}.conf 
     owner: root 
     group: root 
     mode: 0644
@@ -10,8 +10,8 @@
 
 - name: activate nginx site
   file:
-    path: /etc/nginx/sites-enabled/{{app_to_deploy}}.conf
-    src: ../sites-available/{{app_to_deploy}}.conf
+    path: /etc/nginx/sites-enabled/{{app_name}}.conf
+    src: ../sites-available/{{app_name}}.conf
     state: link
   notify:
     - nginx should be reloaded
