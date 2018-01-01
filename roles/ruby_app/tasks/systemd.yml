@@ -1,0 +1,22 @@
+---
+- name: socket
+  template:
+    src: systemd-socket.conf 
+    dest: /etc/systemd/system/{{app_to_deploy}}.socket
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - system daemons should be reloaded
+    - socket should be restarted
+
+- name: app
+  template:
+    src: systemd-app.conf 
+    dest: /etc/systemd/system/{{app_to_deploy}}.service
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - system daemons should be reloaded
+    - app should be restarted

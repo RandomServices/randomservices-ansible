@@ -10,6 +10,8 @@ Ansible 2.3 or higher is required.
 
 1. Get the Ansible vault password from the 1Password vault. Place the passphrase in a file named `.vault_pass.txt` (which is specifically ignored by git).
 
+1. Use Ansible Galaxy to install dependent roles: `ansible-galaxy install -r requirements.yml --roles-path .galaxy-roles`
+
 [Installation instructions]:http://docs.ansible.com/intro_installation.html
 
 ### Inventory File

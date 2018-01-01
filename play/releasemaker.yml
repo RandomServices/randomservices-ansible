@@ -2,4 +2,10 @@
 - hosts: releasemaker
   become: true
   roles:
-    - { role: ruby_app, ruby_version: 'ruby_2.4.3', app_to_deploy: 'releasemaker' }
+    - nginx
+    -
+      role: ruby_app
+      ruby_version: 'ruby_2.4.3'
+      app_to_deploy: 'releasemaker'
+      web_hostnames: 'www.releasemaker.com releasemaker.com'
+      app_local_port: 9292

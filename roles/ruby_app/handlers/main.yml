@@ -1,0 +1,15 @@
+- name: nginx should be reloaded
+  # reloading the service always fails, so we're restarting instead
+  service: name=nginx state=restarted
+
+- name: nginx should be restarted
+  service: name=nginx state=restarted
+
+- name: system daemons should be reloaded
+  command: systemctl daemon-reload
+
+- name: socket should be restarted
+  service: name={{ app_to_deploy }}.socket state=restarted
+
+- name: app should be restarted
+  service: name={{ app_to_deploy }}.service state=restarted

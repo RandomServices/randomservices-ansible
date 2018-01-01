@@ -1,0 +1,11 @@
+---
+- name: nginx sysctl limits conf file
+  template: src=limits-d-nginx.conf dest=/etc/security/limits.d/nginx.conf owner=root group=root mode=0644
+  notify:
+    - sysctl should be reloaded
+    - nginx should be restarted
+
+- name: /etc/default/nginx
+  template: src=etc-default-nginx.sh dest=/etc/default/nginx owner=root group=root mode=0755
+  notify:
+    - nginx should be restarted

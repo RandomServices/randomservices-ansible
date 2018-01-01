@@ -1,0 +1,17 @@
+- name: nginx site config
+  template:
+    src: nginx-site.conf 
+    dest: /etc/nginx/sites-available/{{app_to_deploy}}.conf 
+    owner: root 
+    group: root 
+    mode: 0644
+  notify:
+    - nginx should be reloaded
+
+- name: activate nginx site
+  file:
+    path: /etc/nginx/sites-enabled/{{app_to_deploy}}.conf
+    src: ../sites-available/{{app_to_deploy}}.conf
+    state: link
+  notify:
+    - nginx should be reloaded

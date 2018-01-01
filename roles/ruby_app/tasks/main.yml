@@ -4,3 +4,5 @@
 - include: app_deploy_user.yml
 - include: app_command.yml
 - include: logrotate.yml
+- include: nginx.yml
+- include: systemd.yml
