@@ -1,8 +1,8 @@
 
-- hosts: finch
+- hosts: finch-staging
   become: true
   vars_files:
-    - vars/finch.yml
+    - vars/finch_staging.yml
   roles:
     - nginx
     - role: ruby_app
