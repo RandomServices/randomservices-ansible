@@ -1,2 +1,2 @@
-- include: apache.yml
-- include: ssl_certificates.yml
+- import_tasks: apache.yml
+- import_tasks: ssl_certificates.yml

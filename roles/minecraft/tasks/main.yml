@@ -1,2 +1,2 @@
-- include: minecraft.yml
-- include: overviewer.yml
+- import_tasks: minecraft.yml
+- import_tasks: overviewer.yml

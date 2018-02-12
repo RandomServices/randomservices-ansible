@@ -1,6 +1,6 @@
-- include: aptitude.yml
-- include: logrotate.yml
-- include: acl.yml
-- include: sysctl.yml
-- include: root_ca.yml
-- include: zsh.yml
+- import_tasks: aptitude.yml
+- import_tasks: logrotate.yml
+- import_tasks: acl.yml
+- import_tasks: sysctl.yml
+- import_tasks: root_ca.yml
+- import_tasks: zsh.yml

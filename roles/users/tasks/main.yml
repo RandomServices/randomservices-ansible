@@ -10,7 +10,7 @@
    - git
    - git-core
 
-- include: "active_user.yml"
+- include_tasks: "active_user.yml"
   with_items: "{{active_users}}"
 
 - name: Remove Users
