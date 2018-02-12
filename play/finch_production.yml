@@ -1,0 +1,12 @@
+
+- hosts: finch-production
+  become: true
+  vars_files:
+    - vars/finch_production.yml
+  roles:
+    - nginx
+    - role: ruby_app
+      ruby_version: 'ruby_2.4.3'
+      app_name: 'finch_production'
+      app_web_name: 'finch.harper.dog'
+      app_local_port: 9283
