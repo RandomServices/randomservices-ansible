@@ -8,5 +8,8 @@
 - name: system daemons should be reloaded
   command: systemctl daemon-reload
 
-- name: app should be restarted
+- name: web server should be restarted
   service: name={{ app_name }}.service state=restarted
+
+- name: web server restart trigger should be started
+  service: name={{ app_name }}-restart.path state=started

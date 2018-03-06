@@ -1,5 +1,5 @@
 ---
-- name: app service
+- name: web server service
   template:
     src: systemd-app.conf 
     dest: /etc/systemd/system/{{app_name}}.service
@@ -8,4 +8,25 @@
     mode: 0644
   notify:
     - system daemons should be reloaded
-    - app should be restarted
+    - web server should be restarted
+
+- name: web server restarter service
+  template:
+    src: systemd-app-restarter.conf 
+    dest: /etc/systemd/system/{{app_name}}-restart.service
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - system daemons should be reloaded
+
+- name: web server restarter activator
+  template:
+    src: systemd-app-restarter-path.conf 
+    dest: /etc/systemd/system/{{app_name}}-restart.path
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - system daemons should be reloaded
+    - web server restart trigger should be started
