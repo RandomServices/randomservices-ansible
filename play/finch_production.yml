@@ -9,4 +9,3 @@
       ruby_version: 'ruby_2.4.3'
       app_name: 'finch_production'
       app_web_name: 'finch.harper.dog'
-      app_local_port: 9283

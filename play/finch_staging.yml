@@ -9,4 +9,3 @@
       ruby_version: 'ruby_2.4.3'
       app_name: 'finch_staging'
       app_web_name: 'finch.rndsvc.net'
-      app_local_port: 9282

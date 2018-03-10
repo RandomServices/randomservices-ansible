@@ -10,4 +10,3 @@
       app_name: 'releasemaker_production'
       app_has_background_processes: false
       app_web_name: 'www.releasemaker.com releasemaker.com'
-      app_local_port: 9292
