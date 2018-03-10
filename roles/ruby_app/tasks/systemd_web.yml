@@ -1,7 +1,7 @@
 ---
 - name: web server service
   template:
-    src: systemd-app.conf 
+    src: systemd-web.conf 
     dest: /etc/systemd/system/{{app_name}}.service
     owner: root
     group: root
@@ -12,7 +12,7 @@
 
 - name: web server restarter service
   template:
-    src: systemd-app-restarter.conf 
+    src: systemd-web-restarter.conf 
     dest: /etc/systemd/system/{{app_name}}-restart.service
     owner: root
     group: root
@@ -22,7 +22,7 @@
 
 - name: web server restarter activator
   template:
-    src: systemd-app-restarter-path.conf 
+    src: systemd-web-restarter-path.conf 
     dest: /etc/systemd/system/{{app_name}}-restart.path
     owner: root
     group: root
