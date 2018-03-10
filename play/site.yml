@@ -11,6 +11,6 @@
     - groups
     - users
 - import_playbook: finch_staging.yml
-- import_playbook: releasemaker.yml
+- import_playbook: releasemaker_production.yml
 - import_playbook: robindaugherty-web.yml
 - import_playbook: minecraft.yml

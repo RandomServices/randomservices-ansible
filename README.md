@@ -76,3 +76,8 @@ This will update all servers, *note that this may restart services*.
 
 To limit to a specific host (or pattern) add the `-l <hostname>` option to the command line.
 You can specify a group name (from the `hosts` file), or a full hostname.
+
+## TODO
+
+- Other processes. e.g. Sidekiq
+- Use sockets for Ruby web apps instead of local ports

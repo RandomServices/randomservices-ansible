@@ -2,11 +2,11 @@
 - hosts: releasemaker
   become: true
   vars_files:
-    - vars/releasemaker.yml
+    - vars/releasemaker_production.yml
   roles:
     - nginx
     - role: ruby_app
       ruby_version: 'ruby_2.4.3'
-      app_name: 'releasemaker'
+      app_name: 'releasemaker_production'
       app_web_name: 'www.releasemaker.com releasemaker.com'
       app_local_port: 9292

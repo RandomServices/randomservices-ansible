@@ -1,5 +1,5 @@
 
-- name: "create {{ app_name }} command"
+- name: "{{ app_name }} command"
   template:
     src: app.sh
     dest: "/usr/local/bin/{{ app_name }}"
@@ -7,7 +7,7 @@
     group: root
     mode: 0755
 
-- name: app environment setup
+- name: app environment
   template:
     src: app-env.sh 
     dest: /home/{{ app_name }}/.app-env.sh
@@ -15,7 +15,7 @@
     group: root 
     mode: 0644
 
-- name: environment setup in .bashrc
+- name: app environment in .bashrc
   lineinfile:
     dest: "/home/{{ app_name }}/.bashrc"
     line: ". ~/.app-env.sh"
