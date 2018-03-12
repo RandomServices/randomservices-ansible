@@ -7,6 +7,9 @@ hazel.rndsvc.net
 [finch-staging]
 hazel.rndsvc.net
 
+[finch-production]
+hazel.rndsvc.net
+
 [minecraft]
 
 [btc]
