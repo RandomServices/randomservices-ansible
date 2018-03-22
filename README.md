@@ -70,7 +70,7 @@ Subsequent runs must use _your_ user account and SSH key, and Ansible will need 
 
 For subsequent runs of this (updating users, for instance), do the following:
 
-    ansible-playbook play/site.yml --ask-sudo-pass
+    ansible-playbook play/site.yml --ask-become-pass
 
 This will update all servers, *note that this may restart services*.
 
