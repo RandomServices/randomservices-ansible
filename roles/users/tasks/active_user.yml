@@ -1,10 +1,10 @@
-- name: Per-user group
+- name: "Per-user group for {{item.username}}"
   group:
     name: "{{item.username}}"
     gid: "{{item.uid}}"
   when: users_create_per_user_group
 
-- name: Create/Update Users
+- name: "Create/Update {{item.username}}"
   user:
     name: "{{item.username}}"
     group: "{{item.username if users_create_per_user_group else users_group}}"
@@ -15,25 +15,25 @@
     createhome: "{{'yes' if users_create_homedirs else 'no'}}"
     password: "{{item.password}}"
 
-- name: Clone oh-my-zsh repo
+- name: "Clone oh-my-zsh repo for {{item.username}}"
   become: true
   become_user: "{{item.username}}"
   git:
     repo: https://github.com/robbyrussell/oh-my-zsh.git
     dest: "/home/{{item.username}}/.oh-my-zsh"
 
-- name: Look for existing .zshrc
+- name: "look for existing .zshrc for {{item.username}}"
   stat:
     path: "/home/{{item.username}}/.zshrc"
   register: zshrc
 
-- name: Copy .zshrc from oh-my-zsh
+- name: "copy .zshrc from oh-my-zsh for {{item.username}}"
   become: true
   become_user: "{{item.username}}"
   command: "cp -a /home/{{item.username}}/.oh-my-zsh/templates/zshrc.zsh-template /home/{{item.username}}/.zshrc" 
   when: zshrc.stat.exists == false
 
-- name: custom themes directory
+- name: "custom themes directory for {{item.username}}"
   become: true
   become_user: "{{item.username}}"
   file:
@@ -41,7 +41,7 @@
     state: directory
     recurse: yes
 
-- name: Add robind zsh theme
+- name: "zsh theme for {{item.username}}"
   become: true
   become_user: "{{item.username}}"
   get_url:
@@ -49,14 +49,14 @@
     dest: "/home/{{item.username}}/.oh-my-zsh/custom/themes/robind.zsh-theme"
     mode: 0664
 
-- name: Remove old robind zsh theme
+- name: "remove old robind zsh theme for {{item.username}}"
   become: true
   become_user: "{{item.username}}"
   file:
     dest: "/home/{{item.username}}/.oh-my-zsh/themes/robind.zsh-theme"
     state: absent
 
-- name: Set zsh theme to robind
+- name: "zsh theme preference for {{item.username}}"
   become: true
   become_user: "{{item.username}}"
   lineinfile:
@@ -64,7 +64,7 @@
     line: ZSH_THEME="robind"
     regexp: "ZSH_THEME="
 
-- name: Add/Update User SSH keys
+- name: "authorized SSH keys for {{item.username}}"
   authorized_key:
     user: "{{item.username}}"
     key: "{{item.ssh_key.0}}"
