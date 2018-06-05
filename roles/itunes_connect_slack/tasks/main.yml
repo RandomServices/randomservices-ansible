@@ -1,0 +1,42 @@
+---
+- name: docker
+  apt:
+    name: docker
+    state: present
+
+- name: python-pip
+  apt:
+    name: python-pip
+    state: present
+
+- name: docker-py
+  pip:
+    name: docker-py
+    state: present
+
+- name: code repo
+  git:
+    repo: https://github.com/RobinDaugherty/itunes-connect-slack.git
+    dest: /tmp/itunes-connect-slack
+  register: git_repo
+
+- name: docker image
+  docker_image:
+    path: /tmp/itunes-connect-slack
+    name: itunes_connect_slack
+    force: "{{ git_repo.changed }}"
+    buildargs:
+      ITUNES_CONNECT_USERNAME: "{{ itunes_connect_slack.itunes_connect_username }}"
+      ITUNES_CONNECT_PASSWORD: "{{ itunes_connect_slack.itunes_connect_password }}"
+      SLACK_BOT_API_TOKEN: "{{ itunes_connect_slack.slack_bot_api_token }}"
+      SLACK_CHANNEL: "{{ itunes_connect_slack.slack_channel | default('#ios-app-updates') }}"
+      APP_BUNDLE_ID: "{{ itunes_connect_slack.app_bundle_id }}"
+  register: docker_image
+
+- name: docker container
+  docker_container:
+    name: "{{ itunes_connect_slack.name }}"
+    image: itunes_connect_slack
+    network_mode: bridge
+    state: started
+    recreate: "{{ docker_image.changed }}"
