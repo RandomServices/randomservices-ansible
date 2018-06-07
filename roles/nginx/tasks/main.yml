@@ -1,4 +1,9 @@
 ---
+- name: nginx
+  apt:
+    pkg: nginx
+    state: latest
+
 - name: nginx sysctl limits conf file
   template: src=limits-d-nginx.conf dest=/etc/security/limits.d/nginx.conf owner=root group=root mode=0644
   notify:
