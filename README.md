@@ -19,7 +19,7 @@ Ansible 2.3 or higher is required.
 The target devices are listed in a hosts file such as `inventory`.
 
 `inventory` contains the up-to-date list of known production devices.
-When a device is added or removed, commit this file with the changes immediately.
+When a server is added/removed/replaced in the production infrastructure, commit this file with the changes immediately.
 
 You should create a `inventory-dev` for testing changes to Ansible, and the devices placed there are for your own development.
 
