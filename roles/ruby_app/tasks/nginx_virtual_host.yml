@@ -1,0 +1,23 @@
+---
+- name: "nginx site config for {{ app.name }}"
+  template:
+    src: nginx-site.conf 
+    dest: /etc/nginx/sites-available/{{ app.name }}.conf 
+    owner: root 
+    group: root 
+    mode: 0644
+  notify:
+    - nginx should be reloaded
+
+- name: "activate nginx site for {{ app.name }}"
+  file:
+    path: /etc/nginx/sites-enabled/{{ app.name }}.conf
+    src: ../sites-available/{{ app.name }}.conf
+    state: link
+  notify:
+    - nginx should be reloaded
+
+- include_tasks: ssl.yml
+  loop: "{{ app.virtual_hosts }}"
+  loop_control:
+    loop_var: virtual_host

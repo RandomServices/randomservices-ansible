@@ -4,18 +4,3 @@
 
 - name: nginx should be restarted
   service: name=nginx state=restarted
-
-- name: system daemons should be reloaded
-  command: systemctl daemon-reload
-
-- name: web server should be restarted
-  service: name={{ app_name }}.service state=restarted
-
-- name: web server restart trigger should be started
-  service: name={{ app_name }}-restart.path state=started
-
-- name: background should be restarted
-  service: name={{ app_name }}-background.service state=restarted
-
-- name: background restart trigger should be started
-  service: name={{ app_name }}-background-restart.path state=started

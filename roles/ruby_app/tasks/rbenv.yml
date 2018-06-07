@@ -1,3 +1,4 @@
+---
 - name: install python-software-properties
   apt: pkg=python-software-properties state=present
 

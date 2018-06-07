@@ -1,8 +1,8 @@
-
-- name: "{{ app_name }} command"
+---
+- name: "{{ app.name }} command"
   template:
     src: app.sh
-    dest: "/usr/local/bin/{{ app_name }}"
+    dest: "/usr/local/bin/{{ app.name }}"
     owner: root
     group: root
     mode: 0755
@@ -10,14 +10,14 @@
 - name: app environment
   template:
     src: app-env.sh 
-    dest: /home/{{ app_name }}/.app-env.sh
+    dest: /home/{{ app.name }}/.app-env.sh
     owner: root 
     group: root 
     mode: 0644
 
 - name: app environment in .bashrc
   lineinfile:
-    dest: "/home/{{ app_name }}/.bashrc"
+    dest: "/home/{{ app.name }}/.bashrc"
     line: ". ~/.app-env.sh"
     insertbefore: "If not running interactively, don't do anything"
   # In fact, it's incredibly important for Capistrano that this file be run regardless of
@@ -25,5 +25,5 @@
 
 - name: "'cd' in .bashrc"
   lineinfile:
-    dest: "/home/{{ app_name }}/.bashrc"
-    line: "cd /var/www/{{ app_name }}/current"
+    dest: "/home/{{ app.name }}/.bashrc"
+    line: "cd /var/www/{{ app.name }}/current"

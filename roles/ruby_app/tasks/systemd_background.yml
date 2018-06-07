@@ -2,31 +2,38 @@
 - name: background service
   template:
     src: systemd-background.conf 
-    dest: /etc/systemd/system/{{app_name}}-background.service
+    dest: /etc/systemd/system/{{ app.name }}-background.service
     owner: root
     group: root
     mode: 0644
-  notify:
-    - system daemons should be reloaded
-    - background should be restarted
+  register: background
 
 - name: background restarter service
   template:
     src: systemd-background-restarter.conf 
-    dest: /etc/systemd/system/{{app_name}}-background-restart.service
+    dest: /etc/systemd/system/{{ app.name }}-background-restart.service
     owner: root
     group: root
     mode: 0644
-  notify:
-    - system daemons should be reloaded
+  register: background_restarter
 
 - name: background restarter activator
   template:
     src: systemd-background-restarter-path.conf 
-    dest: /etc/systemd/system/{{app_name}}-background-restart.path
+    dest: /etc/systemd/system/{{ app.name }}-background-restart.path
     owner: root
     group: root
     mode: 0644
-  notify:
-    - system daemons should be reloaded
-    - background restart trigger should be started
+  register: background_restarter_activator
+
+- name: reload system daemons
+  command: systemctl daemon-reload
+  when: background.changed or background_restarter.changed or background_restarter_activator.changed
+
+- name: restart background
+  service: name={{ app.name }}-background.service state=restarted
+  when: background.changed
+
+- name: restart background restart trigger
+  service: name={{ app.name }}-background-restart.path state=started
+  when: background_restarter_activator.changed

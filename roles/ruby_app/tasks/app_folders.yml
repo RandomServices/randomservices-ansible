@@ -1,14 +1,15 @@
+---
 - name: webapps group
   group: name=webapps gid=600 state=present
 
-- name: "{{ app_name }} user"
-  user: name={{ app_name }} shell=/bin/bash group=webapps state=present
+- name: "{{ app.name }} user"
+  user: name={{ app.name }} shell=/bin/bash group=webapps state=present
 
-- name: directory /var/www/{{ app_name }}
-  file: path=/var/www/{{ app_name }} state=directory group=webapps owner={{ app_name }} recurse=yes
+- name: directory /var/www/{{ app.name }}
+  file: path=/var/www/{{ app.name }} state=directory group=webapps owner={{ app.name }} recurse=yes
 
-- name: directory /var/www/{{ app_name }}/shared
-  file: path=/var/www/{{ app_name }}/shared state=directory group=webapps owner={{ app_name }} recurse=yes
+- name: directory /var/www/{{ app.name }}/shared
+  file: path=/var/www/{{ app.name }}/shared state=directory group=webapps owner={{ app.name }} recurse=yes
 
-- name: "{{ app_name }} .ssh directory"
-  file: path=/home/{{ app_name }}/.ssh state=directory group=webapps owner={{ app_name }} recurse=yes
+- name: "{{ app.name }} .ssh directory"
+  file: path=/home/{{ app.name }}/.ssh state=directory group=webapps owner={{ app.name }} recurse=yes

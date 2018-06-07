@@ -1,3 +1,3 @@
 #! /bin/sh
 
-sudo -u {{ app_name }} -i
+sudo -u {{ app.name }} -i

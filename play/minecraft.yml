@@ -1,4 +1,4 @@
-
+---
 - hosts: minecraft
   become: true
   roles:

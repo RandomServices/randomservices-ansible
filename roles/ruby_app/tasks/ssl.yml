@@ -1,18 +1,22 @@
 ---
-- name: SSL certificate
+- name: "SSL certificate for {{ virtual_host.name }}"
   template:
     src: ssl_cert.pem
-    dest: /etc/nginx/ssl/{{ app_name }}.crt
+    dest: /etc/nginx/ssl/{{ app.name }}-{{ virtual_host.name }}.crt
     owner: root
     group: root
     mode: 0640
-  notify: nginx should be reloaded
+  when: virtual_host.ssl is defined
+  notify:
+    - nginx should be reloaded
 
-- name: SSL key
+- name: "SSL key for {{ virtual_host.name }}"
   template:
     src: ssl_key.pem
-    dest: /etc/nginx/ssl/{{ app_name }}.key
+    dest: /etc/nginx/ssl/{{ app.name }}-{{ virtual_host.name }}.key
     owner: root
     group: root
     mode: 0640
-  notify: nginx should be reloaded
+  when: virtual_host.ssl is defined
+  notify:
+    - nginx should be reloaded

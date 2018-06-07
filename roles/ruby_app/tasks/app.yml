@@ -1,0 +1,12 @@
+---
+- import_tasks: rbenv.yml
+- include_tasks: "{{ app.ruby_version }}.yml"
+- import_tasks: app_folders.yml
+- import_tasks: app_deploy_user.yml
+- import_tasks: app_command.yml
+- import_tasks: logrotate.yml
+- include_tasks: nginx_virtual_host.yml
+- import_tasks: systemd_web.yml
+
+- include_tasks: systemd_background.yml
+  when: app_has_background_processes

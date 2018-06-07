@@ -5,7 +5,4 @@
     - vars/finch_staging.yml
   roles:
     - nginx
-    - role: ruby_app
-      ruby_version: 'ruby_2.4.3'
-      app_name: 'finch_staging'
-      app_web_name: 'finch.rndsvc.net'
+    - ruby_app

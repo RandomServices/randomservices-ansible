@@ -2,31 +2,38 @@
 - name: web server service
   template:
     src: systemd-web.conf 
-    dest: /etc/systemd/system/{{app_name}}.service
+    dest: /etc/systemd/system/{{ app.name }}.service
     owner: root
     group: root
     mode: 0644
-  notify:
-    - system daemons should be reloaded
-    - web server should be restarted
+  register: web_service
 
 - name: web server restarter service
   template:
     src: systemd-web-restarter.conf 
-    dest: /etc/systemd/system/{{app_name}}-restart.service
+    dest: /etc/systemd/system/{{ app.name }}-restart.service
     owner: root
     group: root
     mode: 0644
-  notify:
-    - system daemons should be reloaded
+  register: web_service_restarter
 
 - name: web server restarter activator
   template:
     src: systemd-web-restarter-path.conf 
-    dest: /etc/systemd/system/{{app_name}}-restart.path
+    dest: /etc/systemd/system/{{ app.name }}-restart.path
     owner: root
     group: root
     mode: 0644
-  notify:
-    - system daemons should be reloaded
-    - web server restart trigger should be started
+  register: web_service_restarter_activator
+
+- name: reload system daemons
+  command: systemctl daemon-reload
+  when: web_service.changed or web_service_restarter.changed or web_service_restarter_activator.changed
+
+- name: restart web server
+  service: name={{ app.name }}.service state=restarted
+  when: web_service.changed
+
+- name: restart web server restart trigger
+  service: name={{ app.name }}-restart.path state=started
+  when: web_service_restarter_activator.changed
