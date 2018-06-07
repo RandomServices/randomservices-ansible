@@ -1,6 +1,4 @@
 ---
-- include_vars: "users.yml"
-
 - name: Install git and zsh 
   apt:
     name: "{{item}}"
