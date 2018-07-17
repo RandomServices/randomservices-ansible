@@ -27,13 +27,20 @@
   register: web_service_restarter_activator
 
 - name: reload system daemons
-  command: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
   when: web_service.changed or web_service_restarter.changed or web_service_restarter_activator.changed
 
 - name: restart web server
-  service: name={{ app.name }}.service state=restarted
+  systemd:
+    name: "{{ app.name }}.service"
+    enabled: yes
+    state: restarted
   when: web_service.changed
 
 - name: restart web server restart trigger
-  service: name={{ app.name }}-restart.path state=started
+  systemd:
+    name: "{{ app.name }}-restart.path"
+    enabled: yes
+    state: restarted
   when: web_service_restarter_activator.changed

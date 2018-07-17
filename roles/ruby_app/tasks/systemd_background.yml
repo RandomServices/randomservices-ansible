@@ -27,13 +27,20 @@
   register: background_restarter_activator
 
 - name: reload system daemons
-  command: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
   when: background.changed or background_restarter.changed or background_restarter_activator.changed
 
 - name: restart background
-  service: name={{ app.name }}-background.service state=restarted
+  systemd:
+    name: "{{ app.name }}-background.service"
+    enabled: yes
+    state: restarted
   when: background.changed
 
 - name: restart background restart trigger
-  service: name={{ app.name }}-background-restart.path state=started
+  systemd:
+    name: "{{ app.name }}-background-restart.path"
+    enabled: yes
+    state: restarted
   when: background_restarter_activator.changed
