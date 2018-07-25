@@ -31,6 +31,32 @@
   shell: "jq -r '.latest.release' /tmp/minecraft_version_manifest.json"
   register: minecraft_version
 
+- name: get Minecraft launcher data URL
+  shell: "jq -r '.versions[] | select(.id ==\"{{ minecraft_version.stdout }}\") | .url' /tmp/minecraft_version_manifest.json"
+  register: minecraft_launcher_data_url
+
+- name: download Minecraft launcher data
+  get_url:
+    url: "{{ minecraft_launcher_data_url.stdout }}"
+    dest: "/tmp/minecraft_launcher_data_{{ minecraft_version.stdout }}.json"
+    force: yes
+
+- name: get Minecraft server URL
+  shell: "jq -r '.downloads.server.url' /tmp/minecraft_launcher_data_{{ minecraft_version.stdout }}.json"
+  register: minecraft_server_url
+
+- name: get Minecraft server SHA
+  shell: "jq -r '.downloads.server.sha1' /tmp/minecraft_launcher_data_{{ minecraft_version.stdout }}.json"
+  register: minecraft_server_sha
+
+- name: get Minecraft client URL
+  shell: "jq -r '.downloads.client.url' /tmp/minecraft_launcher_data_{{ minecraft_version.stdout }}.json"
+  register: minecraft_client_url
+
+- name: get Minecraft client SHA
+  shell: "jq -r '.downloads.client.sha1' /tmp/minecraft_launcher_data_{{ minecraft_version.stdout }}.json"
+  register: minecraft_client_sha
+
 - name: minecraft group
   group:
     name: minecraft
@@ -53,8 +79,9 @@
 
 - name: Minecraft Server JAR
   get_url:
-    url: https://s3.amazonaws.com/Minecraft.Download/versions/{{minecraft_version.stdout}}/minecraft_server.{{minecraft_version.stdout}}.jar
-    dest: /var/minecraft/minecraft_server_{{minecraft_version.stdout}}.jar
+    url: "{{ minecraft_server_url.stdout }}"
+    checksum: "sha1:{{ minecraft_server_sha.stdout }}"
+    dest: /var/minecraft/minecraft_server_{{ minecraft_version.stdout }}.jar
     mode: u=rw,g=rw,o=r
     owner: root
   notify: restart minecraft service
@@ -69,7 +96,8 @@
 
 - name: Minecraft client JAR
   get_url:
-    url: https://s3.amazonaws.com/Minecraft.Download/versions/{{minecraft_version.stdout}}/{{minecraft_version.stdout}}.jar
+    url: "{{ minecraft_client_url.stdout }}"
+    checksum: "sha1:{{ minecraft_client_sha.stdout }}"
     dest: /var/minecraft/client/{{minecraft_version.stdout}}/{{minecraft_version.stdout}}.jar
     mode: u=rw,g=rw,o=r
     owner: root
