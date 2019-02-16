@@ -81,3 +81,7 @@ You can specify a group name (from the `hosts` file), or a full hostname.
 
 - Other processes. e.g. Sidekiq
 - Use sockets for Ruby web apps instead of local ports
+- nvm or nodejs installation. Currently it must be done manually:
+    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+    npm install -g yarn
