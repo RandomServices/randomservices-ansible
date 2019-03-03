@@ -13,4 +13,4 @@
     dest: "/home/{{ app.name }}/.ssh/id_rsa"
     content: "{{ app.ssh_key.private }}"
     mode: 0600
-  when: app.ssh_key.private is defined
+  when: app.ssh_key is defined and app.ssh_key.private is defined
