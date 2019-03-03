@@ -1,0 +1,16 @@
+---
+- name: webapps group
+  group: name=webapps gid=600 state=present
+
+- name: "{{ app.name }} user"
+  user: name={{ app.name }} shell=/bin/bash group=webapps state=present
+
+- name: "{{ app.name }} .ssh directory"
+  file: path=/home/{{ app.name }}/.ssh state=directory group=webapps owner={{ app.name }} recurse=yes
+
+- name: "SSH Key for {{ app.name }}"
+  copy:
+    dest: "/home/{{ app.name }}/.ssh/id_rsa"
+    content: "{{ app.ssh_key.private }}"
+    mode: 0600
+  when: app.ssh_key.private is defined

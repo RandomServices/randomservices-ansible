@@ -1,6 +1,7 @@
 ---
 - import_tasks: rbenv.yml
 - include_tasks: "{{ app.ruby_version }}.yml"
+- import_tasks: user.yml
 - import_tasks: app_folders.yml
 - import_tasks: app_deploy_user.yml
 - import_tasks: app_command.yml

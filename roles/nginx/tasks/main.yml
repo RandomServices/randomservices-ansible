@@ -21,4 +21,4 @@
     path: /etc/nginx/ssl
     owner: root
     group: root
-    mode: 660
+    mode: 0660
