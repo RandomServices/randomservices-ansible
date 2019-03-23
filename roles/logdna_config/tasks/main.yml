@@ -1,0 +1,14 @@
+---
+- name: LogDNA hostname
+  lineinfile:
+    line: "hostname = {{ inventory_hostname | regex_replace('\\.flowsp.net$','') | replace('.','-') }}"
+    path: /etc/logdna.conf
+    regexp: "^hostname"
+  notify: logdna-agent needs to be restarted
+
+- name: LogDNA tags
+  lineinfile:
+    line: "tags = {{ group_names | join(',')}}"
+    path: /etc/logdna.conf
+    regexp: "^tags"
+  notify: logdna-agent needs to be restarted

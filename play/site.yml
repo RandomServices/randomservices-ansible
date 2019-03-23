@@ -5,6 +5,7 @@
   roles:
     - hostname
     - common
+    - logdna
     - ssh
     - newrelic_infra
     - fail2ban
