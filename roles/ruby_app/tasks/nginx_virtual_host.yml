@@ -3,8 +3,8 @@
   template:
     src: nginx-site.conf 
     dest: /etc/nginx/sites-available/{{ app.name }}.conf 
-    owner: root 
-    group: root 
+    owner: root
+    group: root
     mode: 0644
   notify:
     - nginx should be reloaded
