@@ -1,6 +1,5 @@
 - name: nginx should be reloaded
-  # reloading the service always fails, so we're restarting instead
-  service: name=nginx state=restarted
+  service: name=nginx state=reloaded
 
 - name: nginx should be restarted
   service: name=nginx state=restarted
