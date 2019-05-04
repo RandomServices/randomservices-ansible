@@ -1,8 +1,14 @@
 ---
-- hosts: releasemaker
+- hosts: releasemaker-production
   become: true
   vars_files:
     - vars/releasemaker_production.yml
   roles:
     - nginx
     - ruby_app
+- hosts: releasemaker-production-redis
+  become: true
+  vars_files:
+    - vars/releasemaker_production.yml
+  roles:
+    - redis

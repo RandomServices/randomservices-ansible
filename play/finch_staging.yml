@@ -1,4 +1,4 @@
-
+---
 - hosts: finch-staging
   become: true
   vars_files:

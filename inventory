@@ -1,24 +1,56 @@
-[robindaugherty-web]
-podkayne.rndsvc.net
+---
+#
+# Location groups:
+#
+# One group for each data center at each provider.
+do:
+  hosts:
+    web01.do.rndsvc.net:
+    redis01.do.rndsvc.net:
 
-[releasemaker]
-hazel.rndsvc.net
+#
+# Function groups:
+#
+production:
+  children:
+    releasemaker-production:
+      hosts:
+        web01.do.rndsvc.net:
+      vars:
+        ruby_app_web: yes
+        ruby_app_worker: yes
+    releasemaker-production-redis:
+      hosts:
+        redis01.do.rndsvc.net:
+    releasemaker-staging:
+      hosts:
+        web01.do.rndsvc.net:
+      vars:
+        ruby_app_web: yes
+        ruby_app_worker: yes
+    finch-production:
+      hosts:
+        web01.do.rndsvc.net:
+      vars:
+        ruby_app_web: yes
+        ruby_app_worker: yes
+    finch-staging:
+      hosts:
+        web01.do.rndsvc.net:
+      vars:
+        ruby_app_web: yes
+        ruby_app_worker: yes
+    robindaugherty-web:
+      hosts:
+        web01.do.rndsvc.net:
+    minecraft:
+      hosts:
+        crafty.rndsvc.net:
 
-[finch-staging]
-hazel.rndsvc.net
+redis:
+  children:
+    releasemaker-production-redis:
 
-[finch-production]
-hazel.rndsvc.net
-
-[harper-utils]
-hazel.rndsvc.net
-
-[minecraft]
-crafty.rndsvc.net
-
-[btc]
-btc01.rndsvc.net
-
-[all:vars]
-ansible_python_interpreter=/usr/bin/python2.7
-environment_type=production
+all:
+  vars:
+    ansible_python_interpreter: /usr/bin/python3

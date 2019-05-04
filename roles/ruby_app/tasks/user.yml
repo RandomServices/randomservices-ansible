@@ -8,6 +8,7 @@
 - name: "{{ app.name }} .ssh directory"
   file: path=/home/{{ app.name }}/.ssh state=directory group=webapps owner={{ app.name }} recurse=yes
 
+# This is optional. If set, it's used by the application when it uses SSH to connect outward.
 - name: "SSH Key for {{ app.name }}"
   copy:
     dest: "/home/{{ app.name }}/.ssh/id_rsa"

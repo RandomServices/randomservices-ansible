@@ -7,7 +7,7 @@
 - name: 'download ssh keys for {{ app.name }} deployment'
   get_url:
     dest: '/home/{{ app.name }}/.ssh/keys'
-    url: '{{ item }}'
+    url: 'https://github.com/{{ item }}.keys'
   with_items: "{{ app.deploy_github_users | default ([]) }}"
 
 - name: 'deployment ssh key for {{ app.name }} deployment'

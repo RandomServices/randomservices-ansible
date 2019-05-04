@@ -1,0 +1,26 @@
+---
+- name: install packages required for Ruby 2.6.2
+  apt:
+    pkg: '{{ item }}'
+    state: latest
+  with_items:
+   - libreadline-dev
+   - build-essential
+   - libssl-dev
+   - zlib1g-dev
+   - postgresql-client
+   - libpq-dev
+
+- name: detect existing Ruby 2.6.2
+  command: /usr/local/rbenv/versions/2.6.2/bin/ruby --version 2>&1 | grep "ruby 2.6.2"
+  register: existing_mri
+  ignore_errors: True
+
+- name: install Ruby 2.6.2
+  shell: RBENV_ROOT=/usr/local/rbenv /usr/local/rbenv/bin/rbenv install 2.6.2
+  register: installed_mri
+  when: existing_mri.failed
+
+- name: update Rubygems for Ruby 2.6.2
+  shell: RBENV_ROOT=/usr/local/rbenv RBENV_VERSION=2.6.2 /usr/local/rbenv/bin/rbenv exec gem update --system
+  when: installed_mri.changed

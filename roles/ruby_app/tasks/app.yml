@@ -6,8 +6,13 @@
 - import_tasks: app_deploy_user.yml
 - import_tasks: app_command.yml
 - import_tasks: logrotate.yml
+
 - include_tasks: nginx_virtual_host.yml
-- import_tasks: systemd_web.yml
+  when: ruby_app_web is defined and ruby_app_web
+- include_tasks: nodejs_10.yml
+  when: ruby_app_web is defined and ruby_app_web
+- include_tasks: systemd_web.yml
+  when: ruby_app_web is defined and ruby_app_web
 
 - include_tasks: systemd_background.yml
-  when: app_has_background_processes
+  when: ruby_app_worker is defined and ruby_app_worker and app_has_background_processes

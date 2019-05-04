@@ -5,6 +5,11 @@
     state: latest
   with_items:
    - libreadline-dev
+   - build-essential
+   - libssl-dev
+   - zlib1g-dev
+   - postgresql-client
+   - libpq-dev
 
 - name: detect existing Ruby 2.6.1
   command: /usr/local/rbenv/versions/2.6.1/bin/ruby --version 2>&1 | grep "ruby 2.6.1"

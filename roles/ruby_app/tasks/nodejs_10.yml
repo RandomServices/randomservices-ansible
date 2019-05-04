@@ -1,0 +1,35 @@
+---
+- name: apt gpg key for node
+  apt_key:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    state: present
+
+- name: apt gpg key for yarn
+  apt_key:
+    url: https://dl.yarnpkg.com/debian/pubkey.gpg
+    state: present
+
+- name: apt repository for node
+  apt_repository:
+    repo: deb https://deb.nodesource.com/node_10.x bionic main
+
+- name: apt src repository for node
+  apt_repository:
+    repo: deb-src https://deb.nodesource.com/node_10.x bionic main
+
+- name: apt repository for yarn
+  apt_repository:
+    repo: deb https://dl.yarnpkg.com/debian/ stable main
+
+- name: update Aptitude cache
+  apt: update_cache=yes
+
+- name: node.js
+  apt:
+    name: nodejs
+    state: latest
+
+- name: yarn
+  apt:
+    name: yarn
+    state: latest

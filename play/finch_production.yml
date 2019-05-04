@@ -1,4 +1,4 @@
-
+---
 - hosts: finch-production
   become: true
   vars_files:

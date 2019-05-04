@@ -1,0 +1,3 @@
+---
+- name: redis needs to be started
+  service: name=redis state=started
