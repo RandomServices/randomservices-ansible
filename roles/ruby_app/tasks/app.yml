@@ -6,6 +6,8 @@
 - import_tasks: app_deploy_user.yml
 - import_tasks: app_command.yml
 - import_tasks: logrotate.yml
+- include_tasks: secret_files.yml
+  when: app.secret_files is defined
 
 - include_tasks: nginx_virtual_host.yml
   when: ruby_app_web is defined and ruby_app_web
