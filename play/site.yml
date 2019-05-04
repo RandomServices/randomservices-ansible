@@ -5,7 +5,9 @@
   roles:
     - hostname
     - common
-    - logdna
+    - role: logdna.logdna
+      conf_key: "{{ logdna_ingestion_key }}"
+    - logdna_config
     - ssh
     - newrelic_infra
     - fail2ban

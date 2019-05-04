@@ -1,7 +1,7 @@
 ---
 - name: LogDNA hostname
   lineinfile:
-    line: "hostname = {{ inventory_hostname | regex_replace('\\.flowsp.net$','') | replace('.','-') }}"
+    line: "hostname = {{ inventory_hostname | regex_replace('\\.rndsvc.net$','') | replace('.','-') }}"
     path: /etc/logdna.conf
     regexp: "^hostname"
   notify: logdna-agent needs to be restarted
