@@ -11,6 +11,10 @@
 - include_tasks: "active_user.yml"
   with_items: "{{active_users}}"
 
+- include_tasks: "active_user.yml"
+  with_items: "{{jump_only_users}}"
+  when: jump_only_users is defined and "jump" in group_names
+
 - name: Remove Users
   user:
     name: "{{item.username}}"
