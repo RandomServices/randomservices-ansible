@@ -5,4 +5,5 @@
     - vars/finch_production.yml
   roles:
     - nginx
+    - postgresql_client
     - ruby_app

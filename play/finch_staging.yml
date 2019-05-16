@@ -5,4 +5,5 @@
     - vars/finch_staging.yml
   roles:
     - nginx
+    - postgresql_client
     - ruby_app

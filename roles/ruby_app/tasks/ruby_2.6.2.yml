@@ -8,7 +8,6 @@
    - build-essential
    - libssl-dev
    - zlib1g-dev
-   - postgresql-client
    - libpq-dev
 
 - name: detect existing Ruby 2.6.2

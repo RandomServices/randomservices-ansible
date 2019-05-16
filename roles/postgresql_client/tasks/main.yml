@@ -1,0 +1,22 @@
+---
+- name: remove postgresql 10 client
+  apt:
+    name: postgresql-client-10
+    state: absent
+
+- name: apt gpg key for postgresql
+  apt_key:
+    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    state: present
+
+- name: apt repository for postgresql
+  apt_repository:
+    repo: deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main
+
+- name: update Aptitude cache
+  apt: update_cache=yes
+
+- name: postgresql-client-11
+  apt:
+    name: postgresql-client-11
+    state: latest
