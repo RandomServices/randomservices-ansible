@@ -28,6 +28,8 @@
     force: yes
 
 - name: get Minecraft version
+  # When you want a specific version of Minecraft
+  # shell: "echo '1.7.10'"
   shell: "jq -r '.latest.release' /tmp/minecraft_version_manifest.json"
   register: minecraft_version
 
