@@ -24,12 +24,9 @@
 - name: update Aptitude cache
   apt: update_cache=yes
 
-- name: node.js
+- name: node.js and yarn
   apt:
-    name: nodejs
-    state: latest
-
-- name: yarn
-  apt:
-    name: yarn
+    name:
+    - nodejs
+    - yarn
     state: latest

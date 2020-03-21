@@ -1,38 +1,15 @@
 - name: update Aptitude cache
   apt: update_cache=yes
 
-- name: aptitude
+- name: apt packages
   apt:
-    pkg: aptitude
+    name:
+    - aptitude
+    - htop
+    - vim
+    - git
+    - git-core
+    - haveged
+    - openssh-client
+    - openssh-server
     state: latest
-
-- name: htop
-  apt:
-    pkg: htop
-    state: latest
-
-- name: vim
-  apt:
-    pkg: vim
-    state: latest
-
-- name: git
-  apt:
-    pkg: '{{ item }}'
-    state: latest
-  with_items:
-   - git
-   - git-core
-
-- name: haveged for moar entropy
-  apt:
-    pkg: haveged
-    state: latest
-
-- name: OpenSSH
-  apt:
-    pkg: '{{ item }}'
-    state: latest
-  with_items:
-   - openssh-client
-   - openssh-server

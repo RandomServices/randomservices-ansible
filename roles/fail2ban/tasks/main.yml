@@ -1,6 +1,6 @@
-- name: install fail2ban
+- name: fail2ban
   apt:
-    pkg: fail2ban
+    name: fail2ban
     state: latest
 
 - name: rsyslog config for fail2ban logs

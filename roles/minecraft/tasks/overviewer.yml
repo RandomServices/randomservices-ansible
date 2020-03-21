@@ -2,12 +2,11 @@
 
 - name: overviewer build requirements
   apt:
-    name: "{{item}}"
+    name:
+    - build-essential
+    - python3-dev
+    - python3-numpy
     state: latest
-  with_items:
-  - build-essential
-  - python3-dev
-  - python3-numpy
 
 - name: overviewer git repository
   git:
@@ -60,7 +59,7 @@
 
 - name: Apache
   apt:
-    pkg: apache2
+    name: apache2
     state: latest
   register: installed_apache
 

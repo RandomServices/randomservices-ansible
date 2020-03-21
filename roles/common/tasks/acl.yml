@@ -1,4 +1,4 @@
 - name: acl
   apt:
-    pkg: acl
+    name: acl
     state: latest

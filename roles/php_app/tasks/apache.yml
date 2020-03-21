@@ -1,9 +1,8 @@
 - name: install Apache apt packages
   apt:
-    pkg: '{{ item }}'
+    name:
+    - apache2
     state: latest
-  with_items:
-   - apache2
 
 - name: enable Apache ModSSL
   apache2_module: state=present name=ssl

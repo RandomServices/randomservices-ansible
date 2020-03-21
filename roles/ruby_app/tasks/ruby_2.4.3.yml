@@ -1,10 +1,8 @@
 ---
 - name: install packages required for Ruby 2.4.3
   apt:
-    pkg: '{{ item }}'
+    name: libreadline-dev
     state: latest
-  with_items:
-   - libreadline-dev
 
 - name: detect existing Ruby 2.4.3
   command: /usr/local/rbenv/versions/2.4.3/bin/ruby --version 2>&1 | grep "ruby 2.4.3"

@@ -2,17 +2,16 @@
 
 - name: install PHP apt packages
   apt:
-    pkg: '{{ item }}'
+    name:
+    - libapache2-mod-php5
+    - composer
+    - php5-mysql
+    - php5-curl
     state: latest
-  with_items:
-   - libapache2-mod-php5
-   - composer
-   - php5-mysql
-   - php5-curl
 
 - name: install NewRelic PHP module
   apt:
-    pkg: newrelic-php5
+    name: newrelic-php5
     state: latest
   notify:
     - Run New Relic Installer

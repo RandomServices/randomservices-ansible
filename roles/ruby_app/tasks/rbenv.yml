@@ -1,6 +1,8 @@
 ---
 - name: software-properties-common package
-  apt: pkg=software-properties-common state=present
+  apt:
+    name: software-properties-common
+    state: present
 
 - name: git clone rbenv
   git:
