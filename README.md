@@ -8,7 +8,7 @@ Ansible 2.3 or higher is required.
 
 1. Install Ansible following the [Installation instructions].
 
-1. Get the Ansible vault password from the 1Password vault. Place the passphrase in a file named `.vault_pass.txt` (which is specifically ignored by git).
+1. Get the Ansible vault password from the 1Password vault. Place the passphrase in a file named `.vault-pass` (which is specifically ignored by git).
 
 1. Use Ansible Galaxy to install dependent roles: `ansible-galaxy install -r requirements.yml --roles-path .galaxy-roles`
 
@@ -35,7 +35,7 @@ As with other variables needed in Ansible, these are stored in yml files in the 
 The data, for example a password string, is stored as a variable with a name.
 Then the variable can be used in the Ansible tasks.
 
-Place the passphrase in the `.vault_pass.txt` file.
+Place the passphrase in the `.vault-pass` file.
 That file will be ignored by git. Never commit the passphrase to git!
 
 The [Ansible documentation](http://docs.ansible.com/playbooks_vault.html#creating-encrypted-files) is pretty straightforward.
@@ -43,7 +43,7 @@ If you use use TextMate, you can set `EDITOR='mate -w'` so that the command will
 
 So for example, to edit an existing Vault-encrypted file, wait for you to edit and close the file, then encrypt the new contents:
 
-    EDITOR='mate -w' ansible-vault edit --vault-password-file=.vault_pass.txt roles/web_server/vars/ssl.yml
+    EDITOR='mate -w' ansible-vault edit roles/web_server/vars/ssl.yml
 
 ## Running Ansible
 

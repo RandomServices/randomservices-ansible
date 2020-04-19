@@ -1,5 +1,5 @@
 inventory-dev
-.vault_pass.txt
+.vault-pass
 .linode_access_token
 *.retry
 tmp/
