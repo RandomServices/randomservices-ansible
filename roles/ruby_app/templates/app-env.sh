@@ -1,4 +1,4 @@
-{% for key, value in app.environment.iteritems() %}
+{% for key, value in app.environment.items() %}
   export {{key}}="{{value}}"
 {% endfor %}
 export TZ=UTC
