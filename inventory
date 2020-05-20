@@ -6,6 +6,7 @@
 do:
   hosts:
     web01.do.rndsvc.net:
+    web02.do.rndsvc.net:
     redis01.do.rndsvc.net:
 
 #
