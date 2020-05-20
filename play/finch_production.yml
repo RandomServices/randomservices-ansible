@@ -7,3 +7,9 @@
     - nginx
     - postgresql_client
     - ruby_app
+- hosts: finch-production-redis
+  become: true
+  vars_files:
+    - vars/finch_production.yml
+  roles:
+    - redis

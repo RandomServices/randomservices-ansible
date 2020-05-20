@@ -18,15 +18,15 @@ production:
       hosts:
         jump01.nyc3.do.rndsvc.net:
           ansible_host: nyc3.do.jump.rndsvc.net
+    redis-production:
+      hosts:
+        redis01.do.rndsvc.net:
     releasemaker-production:
       hosts:
         web01.do.rndsvc.net:
       vars:
         ruby_app_web: yes
         ruby_app_worker: yes
-    releasemaker-production-redis:
-      hosts:
-        redis01.do.rndsvc.net:
     releasemaker-staging:
       hosts:
         web01.do.rndsvc.net:
@@ -54,7 +54,7 @@ production:
 
 redis:
   children:
-    releasemaker-production-redis:
+    redis-production:
 
 all:
   vars:

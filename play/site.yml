@@ -12,6 +12,7 @@
     - fail2ban
     - groups
     - users
+- import_playbook: redis.yml
 - import_playbook: finch_production.yml
 - import_playbook: finch_staging.yml
 - import_playbook: releasemaker_production.yml
