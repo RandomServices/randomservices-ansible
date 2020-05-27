@@ -67,4 +67,5 @@
 - name: "authorized SSH keys for {{item.username}}"
   authorized_key:
     user: "{{item.username}}"
-    key: "{{item.ssh_key.0}}"
+    key: "{{item.ssh_key | join('\n')}}"
+    exclusive: yes
