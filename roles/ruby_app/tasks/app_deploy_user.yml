@@ -4,13 +4,13 @@
     name: '/home/{{ app.name }}/.ssh/keys'
     state: directory
 
-- name: 'download ssh keys for {{ app.name }} deployment'
+- name: 'download github user ssh keys for {{ app.name }} deployment'
   get_url:
     dest: '/home/{{ app.name }}/.ssh/keys'
     url: 'https://github.com/{{ item }}.keys'
   with_items: "{{ app.deploy_github_users | default ([]) }}"
 
-- name: 'deployment ssh key for {{ app.name }} deployment'
+- name: 'deployment ssh key(s) for {{ app.name }} deployment'
   copy:
     content: '{{ app.deployment_key | default("") }}'
     dest: '/home/{{ app.name }}/.ssh/keys/deployment'
