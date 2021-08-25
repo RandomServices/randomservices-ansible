@@ -16,7 +16,7 @@
 - name: update Aptitude cache
   apt: update_cache=yes
 
-- name: postgresql-client-11
+- name: postgresql-client-13
   apt:
-    name: postgresql-client-11
+    name: postgresql-client-13
     state: latest
