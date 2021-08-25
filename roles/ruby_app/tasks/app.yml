@@ -1,12 +1,19 @@
 ---
 - import_tasks: rbenv.yml
 - include_tasks: "{{ app.ruby_version }}.yml"
+
+- import_tasks: nodenv.yml
+  when: app.node_version is defined
+- include_tasks: "node_{{ app.node_version }}.yml"
+  when: app.node_version is defined
+- import_tasks: nodejs_10.yml
+  when: app.node_version is not defined
+
 - import_tasks: user.yml
 - import_tasks: app_folders.yml
 - import_tasks: app_deploy_user.yml
 - import_tasks: app_command.yml
 - import_tasks: logrotate.yml
-- import_tasks: nodejs_10.yml
 - include_tasks: secret_files.yml
   when: app.secret_files is defined
 
