@@ -6,7 +6,7 @@
 
 - name: git clone rbenv
   git:
-    repo: https://github.com/sstephenson/rbenv.git
+    repo: https://github.com/rbenv/rbenv.git
     dest: /usr/local/rbenv
 
 - name: rbenv profile initializer
@@ -14,5 +14,5 @@
 
 - name: git clone ruby-build
   git:
-    repo: https://github.com/sstephenson/ruby-build.git
+    repo: https://github.com/rbenv/ruby-build.git
     dest: /usr/local/rbenv/plugins/ruby-build
