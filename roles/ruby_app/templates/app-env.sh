@@ -5,6 +5,6 @@ export TZ=UTC
 export APP_NAME={{app.name}}
 
 . /etc/profile.d/rbenv.sh
-{% if node_version is defined %}
+{% if app.node_version is defined %}
 . /etc/profile.d/nodenv.sh
 {% endif %}
