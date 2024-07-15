@@ -1,20 +1,24 @@
 ---
 # http://docs.ansible.com/playbooks_best_practices.html#top-level-playbooks-are-separated-by-role
-- hosts: all
+- name: General
+  hosts: all
   become: true
   roles:
     - hostname
     - common
-    - role: logdna.logdna
-      conf_key: "{{ logdna_ingestion_key }}"
-    - logdna_config
     - ssh
     - fail2ban
     - groups
     - users
-- import_playbook: redis.yml
-- import_playbook: finch_production.yml
-- import_playbook: finch_staging.yml
-- import_playbook: releasemaker_production.yml
-- import_playbook: releasemaker_staging.yml
-- import_playbook: minecraft.yml
+- name: Redis
+  import_playbook: redis.yml
+- name: Finch Production
+  import_playbook: finch_production.yml
+- name: Finch Staging
+  import_playbook: finch_staging.yml
+- name: Releasemaker Production
+  import_playbook: releasemaker_production.yml
+- name: Releasemaker Staging
+  import_playbook: releasemaker_staging.yml
+- name: Minecraft
+  import_playbook: minecraft.yml

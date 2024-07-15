@@ -1,15 +1,17 @@
-- name: update Aptitude cache
-  apt: update_cache=yes
+---
+- name: Update Aptitude cache
+  ansible.builtin.apt:
+    update_cache: yes
 
-- name: apt packages
-  apt:
+- name: Various required packages
+  ansible.builtin.apt:
     name:
-    - aptitude
-    - htop
-    - vim
-    - git
-    - git-core
-    - haveged
-    - openssh-client
-    - openssh-server
+      - aptitude
+      - htop
+      - vim
+      - git
+      - git-core
+      - haveged
+      - openssh-client
+      - openssh-server
     state: latest

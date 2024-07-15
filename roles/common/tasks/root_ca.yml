@@ -1,2 +1,3 @@
-- name: update root certificate authority
+---
+- name: Update root certificate authority
   command: update-ca-certificates

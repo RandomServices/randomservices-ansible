@@ -1,7 +1,10 @@
-- name: set /etc/hostname
-  template: src=hostname.conf dest=/etc/hostname owner=root group=root mode=0644
-  register: hostname_in_file
-
-- name: set hostname
-  command: "/bin/hostname {{ inventory_hostname }}"
-  when: hostname_in_file.changed
+---
+- name: Place /etc/hostname
+  ansible.builtin.template:
+    src: hostname.conf
+    dest: /etc/hostname
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - Hostname changed

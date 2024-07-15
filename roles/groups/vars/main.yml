@@ -1,0 +1,7 @@
+---
+groups_remove:
+  - name: nothing
+
+groups_create:
+  - name: admin
+    gid: 501

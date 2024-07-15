@@ -1,6 +1,0 @@
----
-remove_groups:
-- name: nothing
-create_groups:
-- name: admin
-  gid: 501

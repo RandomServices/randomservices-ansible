@@ -1,71 +1,72 @@
-- name: required packages
-  apt:
+---
+- name: Required packages
+  ansible.builtin.apt:
     name: jq
     state: latest
 
 - name: JDK PPA
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: ppa:openjdk-r/ppa
     state: present
-    update_cache: yes
+    update_cache: true
 
 - name: JDK
   become: true
-  apt:
+  ansible.builtin.apt:
     name: openjdk-8-jre-headless
     state: present
 
-- name: correct java version
+- name: Correct java version
   become: true
-  alternatives:
+  ansible.builtin.alternatives:
     name: java
     path: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
 
-- name: download Minecraft launcher manifest
-  get_url:
+- name: Download Minecraft launcher manifest
+  ansible.builtin.get_url:
     url: https://launchermeta.mojang.com/mc/game/version_manifest.json
     dest: /tmp/minecraft_version_manifest.json
-    force: yes
+    force: true
 
-- name: get Minecraft version
+- name: Get Minecraft version
   # When you want a specific version of Minecraft
   # shell: "echo '1.7.10'"
-  shell: "jq -r '.latest.release' /tmp/minecraft_version_manifest.json"
+  ansible.builtin.shell: "jq -r '.latest.release' /tmp/minecraft_version_manifest.json"
   register: minecraft_version
 
-- name: get Minecraft launcher data URL
-  shell: "jq -r '.versions[] | select(.id ==\"{{ minecraft_version.stdout }}\") | .url' /tmp/minecraft_version_manifest.json"
+- name: Get Minecraft launcher data URL
+  ansible.builtin.shell: 'jq -r ''.versions[] | select(.id =="{{ minecraft_version.stdout }}") | .url'' /tmp/minecraft_version_manifest.json'
   register: minecraft_launcher_data_url
 
-- name: download Minecraft launcher data
-  get_url:
+- name: Download Minecraft launcher data
+  ansible.builtin.get_url:
     url: "{{ minecraft_launcher_data_url.stdout }}"
     dest: "/tmp/minecraft_launcher_data_{{ minecraft_version.stdout }}.json"
-    force: yes
+    force: true
 
-- name: get Minecraft server URL
-  shell: "jq -r '.downloads.server.url' /tmp/minecraft_launcher_data_{{ minecraft_version.stdout }}.json"
+- name: Get Minecraft server URL
+  ansible.builtin.shell: "jq -r '.downloads.server.url' /tmp/minecraft_launcher_data_{{ minecraft_version.stdout }}.json"
   register: minecraft_server_url
 
-- name: get Minecraft server SHA
-  shell: "jq -r '.downloads.server.sha1' /tmp/minecraft_launcher_data_{{ minecraft_version.stdout }}.json"
+- name: Get Minecraft server SHA
+  ansible.builtin.shell: "jq -r '.downloads.server.sha1' /tmp/minecraft_launcher_data_{{ minecraft_version.stdout }}.json"
   register: minecraft_server_sha
 
-- name: get Minecraft client URL
-  shell: "jq -r '.downloads.client.url' /tmp/minecraft_launcher_data_{{ minecraft_version.stdout }}.json"
+- name: Get Minecraft client URL
+  ansible.builtin.shell: "jq -r '.downloads.client.url' /tmp/minecraft_launcher_data_{{ minecraft_version.stdout }}.json"
   register: minecraft_client_url
 
-- name: get Minecraft client SHA
-  shell: "jq -r '.downloads.client.sha1' /tmp/minecraft_launcher_data_{{ minecraft_version.stdout }}.json"
+- name: Get Minecraft client SHA
+  ansible.builtin.shell: "jq -r '.downloads.client.sha1' /tmp/minecraft_launcher_data_{{ minecraft_version.stdout }}.json"
   register: minecraft_client_sha
 
 - name: minecraft group
-  group:
+  ansible.builtin.group:
     name: minecraft
     gid: 700
 
 - name: minecraft user
-  user:
+  ansible.builtin.user:
     name: minecraft
     group: minecraft
     shell: /bin/false
@@ -73,14 +74,14 @@
     createhome: yes
 
 - name: Minecraft folder
-  file:
+  ansible.builtin.file:
     dest: /var/minecraft
     state: directory
     owner: minecraft
     group: minecraft
 
 - name: Minecraft Server JAR
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ minecraft_server_url.stdout }}"
     checksum: "sha1:{{ minecraft_server_sha.stdout }}"
     dest: /var/minecraft/minecraft_server_{{ minecraft_version.stdout }}.jar
@@ -89,15 +90,15 @@
   notify: restart minecraft service
 
 - name: Minecraft client folder
-  file:
+  ansible.builtin.file:
     dest: /var/minecraft/client/{{minecraft_version.stdout}}
-    recurse: yes
+    recurse: true
     state: directory
     owner: root
     group: root
 
 - name: Minecraft client JAR
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ minecraft_client_url.stdout }}"
     checksum: "sha1:{{ minecraft_client_sha.stdout }}"
     dest: /var/minecraft/client/{{minecraft_version.stdout}}/{{minecraft_version.stdout}}.jar
@@ -105,10 +106,10 @@
     owner: root
 
 - name: Minecraft systemd service
-  template:
+  ansible.builtin.template:
     src: minecraft.systemd.conf
     dest: /etc/systemd/system/minecraft.service
     owner: root
     group: root
-    mode: 0664
+    mode: "0664"
   notify: enable minecraft service

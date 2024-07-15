@@ -1,9 +1,10 @@
-- include_vars: 'sysctl.yml'
-
-- name: configure swappiness
-  template: src=10-swappiness.conf dest=/etc/sysctl.d/10-swappiness.conf owner=root group=root mode=0644
-  register: configure_swappiness
-
-- name: set swappiness
-  command: "/sbin/sysctl vm.swappiness={{ swappiness }}"
-  when: configure_swappiness.changed
+---
+- name: Configure swappiness
+  ansible.builtin.template:
+    src: 10-swappiness.conf
+    dest: /etc/sysctl.d/10-swappiness.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - Swappiness changed

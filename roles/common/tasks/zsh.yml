@@ -1,6 +1,7 @@
+---
 - name: ZSH
-  apt:
+  ansible.builtin.apt:
     name:
-    - zsh
-    - wget
-    state: latest
+      - zsh
+      - wget
+    state: present

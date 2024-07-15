@@ -1,5 +1,9 @@
-- name: fail2ban needs to be started
-  service: name=fail2ban state=started
+- name: Fail2ban needs to be started
+  ansible.builtin.service:
+    name: fail2ban
+    state: started
 
-- name: rsyslog needs to be reloaded
-  service: name=rsyslog state=restarted
+- name: Rsyslog needs to be reloaded
+  ansible.builtin.service:
+    name: rsyslog
+    state: restarted

@@ -1,5 +1,6 @@
-- name: configure logrotate to run daily
-  cron:
-    name="rotate logs"
-    special_time=daily
-    job="logrotate -v /etc/logrotate.conf"
+---
+- name: Configure logrotate to run daily
+  ansible.builtin.cron:
+    name: "rotate logs"
+    special_time: daily
+    job: "logrotate -v /etc/logrotate.conf"

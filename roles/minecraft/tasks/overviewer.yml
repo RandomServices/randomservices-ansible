@@ -1,85 +1,84 @@
-- include_vars: overviewer.yml
-
-- name: overviewer build requirements
-  apt:
+---
+- name: Overviewer build requirements
+  ansible.builtin.apt:
     name:
-    - build-essential
-    - python3-dev
-    - python3-numpy
-    state: latest
+      - build-essential
+      - python3-dev
+      - python3-numpy
+    state: present
 
-- name: overviewer git repository
-  git:
+- name: Overviewer git repository
+  ansible.builtin.git:
     repo: https://github.com/overviewer/Minecraft-Overviewer.git
     dest: /usr/local/Minecraft-Overviewer
   register: overviewer_source
 
-- name: overviewer build
-  shell: python3 setup.py build
+- name: Overviewer build
+  ansible.builtin.shell: python3 setup.py build
   args:
     chdir: /usr/local/Minecraft-Overviewer
   when: overviewer_source.changed
 
-- name: overviewer group
-  group:
+- name: Overviewer group
+  ansible.builtin.group:
     name: minecraft_overviewer
     gid: 701
 
-- name: overviewer user
-  user:
+- name: Overviewer user
+  ansible.builtin.user:
     name: minecraft_overviewer
     group: minecraft_overviewer
     shell: /bin/false
     uid: 701
-    createhome: yes
+    createhome: true
 
-- name: overviewer minecraft client folder
-  file:
+- name: Overviewer minecraft client folder
+  ansible.builtin.file:
     dest: /home/minecraft_overviewer/.minecraft
-    recurse: yes
+    recurse: true
     state: directory
 
-- name: overviewer minecraft clients
-  file:
+- name: Overviewer minecraft clients
+  ansible.builtin.file:
     dest: /home/minecraft_overviewer/.minecraft/versions
     src: /var/minecraft/client
     state: link
 
-- name: overviewer config
-  template:
+- name: Overviewer config
+  ansible.builtin.template:
     src: overviewer_config.yml
     dest: /etc/minecraft-overviewer.yml
 
-- name: overviewer www folder
-  file:
+- name: Overviewer www folder
+  ansible.builtin.file:
     dest: /var/www/minecraft-overviewer
     state: directory
     owner: minecraft_overviewer
     group: minecraft_overviewer
 
 - name: Apache
-  apt:
+  ansible.builtin.apt:
     name: apache2
     state: latest
   register: installed_apache
 
 - name: Remove default site
   when: installed_apache.changed
-  shell: a2dissite 000-default
+  ansible.builtin.shell: a2dissite 000-default
 
 - name: Apache overviewer site config
-  template:
+  ansible.builtin.template:
     src: overviewer_apache.conf
     dest: /etc/apache2/sites-available/minecraft_overviewer.conf
   register: overviewer_apache_site
   notify: restart Apache server
 
-- name: enable Apache overviewer site
+- name: Enable Apache overviewer site
   when: overviewer_apache_site.changed
-  shell: a2ensite minecraft_overviewer
+  ansible.builtin.shell: a2ensite minecraft_overviewer
   notify: restart Apache server
 
-- name: overviewer cron job
-  template:
+- name: Overviewer cron job
+  ansible.builtin.template:
     src: overviewer.cron
     dest: /etc/cron.d/minecraft-overviewer

@@ -1,29 +1,31 @@
 ---
-- name: Install git and zsh 
-  apt:
-    name: "{{item}}"
-    state: latest
-    update_cache: yes
+- name: Install git and zsh
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
   with_items:
-   - git
-   - git-core
+    - git
+    - git-core
 
-- include_tasks: "active_user.yml"
-  with_items: "{{active_users}}"
+- name: "Active users"
+  ansible.builtin.include_tasks: "active_user.yml"
+  with_items: "{{ active_users }}"
 
-- include_tasks: "active_user.yml"
-  with_items: "{{jump_only_users}}"
+- name: "Jump-only users"
+  ansible.builtin.include_tasks: "active_user.yml"
+  with_items: "{{ jump_only_users }}"
   when: jump_only_users is defined and "jump" in group_names
 
 - name: Remove Users
-  user:
-    name: "{{item.username}}"
+  ansible.builtin.user:
+    name: "{{ item.username }}"
     state: absent
-  with_items: "{{remove_users}}"
+  with_items: "{{ remove_users }}"
 
 - name: Remove user groups
-  group:
-    name: "{{item.username}}"
+  ansible.builtin.group:
+    name: "{{ item.username }}"
     state: absent
-  with_items: "{{remove_users}}"
+  with_items: "{{ remove_users }}"
   when: users_create_per_user_group

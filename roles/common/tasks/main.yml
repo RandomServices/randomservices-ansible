@@ -1,6 +1,13 @@
-- import_tasks: aptitude.yml
-- import_tasks: logrotate.yml
-- import_tasks: acl.yml
-- import_tasks: sysctl.yml
-- import_tasks: root_ca.yml
-- import_tasks: zsh.yml
+---
+- name: Aptitude
+  ansible.builtin.import_tasks: aptitude.yml
+- name: Logrotate
+  ansible.builtin.import_tasks: logrotate.yml
+- name: ACL
+  ansible.builtin.import_tasks: acl.yml
+- name: Sysctl
+  ansible.builtin.import_tasks: sysctl.yml
+- name: Root CA
+  ansible.builtin.import_tasks: root_ca.yml
+- name: ZSH
+  ansible.builtin.import_tasks: zsh.yml

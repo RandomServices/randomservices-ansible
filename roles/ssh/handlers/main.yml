@@ -1,2 +1,5 @@
-- name: sshd needs to be restarted
-  service: name=ssh state=restarted
+---
+- name: SSHd needs to be restarted
+  ansible.builtin.service:
+    name: ssh
+    state: restarted

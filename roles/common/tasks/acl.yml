@@ -1,4 +1,5 @@
-- name: acl
+---
+- name: ACL
   apt:
     name: acl
-    state: latest
+    state: present

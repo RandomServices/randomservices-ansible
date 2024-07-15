@@ -1,71 +1,72 @@
-- name: "Per-user group for {{item.username}}"
-  group:
-    name: "{{item.username}}"
-    gid: "{{item.uid}}"
+---
+- name: "Per-user group for {{ item.username }}"
+  ansible.builtin.group:
+    name: "{{ item.username }}"
+    gid: "{{ item.uid }}"
   when: users_create_per_user_group
 
-- name: "Create/Update {{item.username}}"
-  user:
-    name: "{{item.username}}"
-    group: "{{item.username if users_create_per_user_group else users_group}}"
-    groups: "{{item.groups | join(',')}}"
-    shell: "{{item.shell if item.shell is defined else users_default_shell}}"
-    comment: "{{item.name}}"
-    uid: "{{item.uid}}"
+- name: "Create/Update {{ item.username }}"
+  ansible.builtin.user:
+    name: "{{ item.username }}"
+    group: "{{ item.username  if users_create_per_user_group else users_group}}"
+    groups: "{{ item.groups  | join(',')}}"
+    shell: "{{ item.shell  if item.shell is defined else users_default_shell}}"
+    comment: "{{ item.name }}"
+    uid: "{{ item.uid }}"
     createhome: "{{'yes' if users_create_homedirs else 'no'}}"
-    password: "{{item.password}}"
+    password: "{{ item.password }}"
 
-- name: "Clone oh-my-zsh repo for {{item.username}}"
+- name: "Clone oh-my-zsh repo for {{ item.username }}"
   become: true
-  become_user: "{{item.username}}"
-  git:
+  become_user: "{{ item.username }}"
+  ansible.builtin.git:
     repo: https://github.com/robbyrussell/oh-my-zsh.git
-    dest: "/home/{{item.username}}/.oh-my-zsh"
+    dest: "/home/{{ item.username }}/.oh-my-zsh"
 
-- name: "look for existing .zshrc for {{item.username}}"
-  stat:
-    path: "/home/{{item.username}}/.zshrc"
+- name: "Look for existing .zshrc for {{ item.username }}"
+  ansible.builtin.stat:
+    path: "/home/{{ item.username }}/.zshrc"
   register: zshrc
 
-- name: "copy .zshrc from oh-my-zsh for {{item.username}}"
+- name: "Copy .zshrc from oh-my-zsh for {{ item.username }}"
   become: true
-  become_user: "{{item.username}}"
-  command: "cp -a /home/{{item.username}}/.oh-my-zsh/templates/zshrc.zsh-template /home/{{item.username}}/.zshrc" 
+  become_user: "{{ item.username }}"
+  ansible.builtin.command: "cp -a /home/{{ item.username }}/.oh-my-zsh/templates/zshrc.zsh-template /home/{{ item.username }}/.zshrc"
   when: zshrc.stat.exists == false
 
-- name: "custom themes directory for {{item.username}}"
+- name: "Custom themes directory for {{ item.username }}"
   become: true
-  become_user: "{{item.username}}"
-  file:
-    path: "/home/{{item.username}}/.oh-my-zsh/custom/themes"
+  become_user: "{{ item.username }}"
+  ansible.builtin.file:
+    path: "/home/{{ item.username }}/.oh-my-zsh/custom/themes"
     state: directory
     recurse: yes
 
-- name: "zsh theme for {{item.username}}"
+- name: "Theme for {{ item.username }}"
   become: true
-  become_user: "{{item.username}}"
-  get_url:
+  become_user: "{{ item.username }}"
+  ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/RobinDaugherty/robind-zsh-theme/master/robind.zsh-theme
-    dest: "/home/{{item.username}}/.oh-my-zsh/custom/themes/robind.zsh-theme"
-    mode: 0664
+    dest: "/home/{{ item.username }}/.oh-my-zsh/custom/themes/robind.zsh-theme"
+    mode: "0664"
 
-- name: "remove old robind zsh theme for {{item.username}}"
+- name: "remove old robind zsh theme for {{ item.username }}"
   become: true
-  become_user: "{{item.username}}"
-  file:
-    dest: "/home/{{item.username}}/.oh-my-zsh/themes/robind.zsh-theme"
+  become_user: "{{ item.username }}"
+  ansible.builtin.file:
+    dest: "/home/{{ item.username }}/.oh-my-zsh/themes/robind.zsh-theme"
     state: absent
 
-- name: "zsh theme preference for {{item.username}}"
+- name: "zsh theme preference for {{ item.username }}"
   become: true
-  become_user: "{{item.username}}"
-  lineinfile:
-    dest: "/home/{{item.username}}/.zshrc"
+  become_user: "{{ item.username }}"
+  ansible.builtin.lineinfile:
+    dest: "/home/{{ item.username }}/.zshrc"
     line: ZSH_THEME="robind"
     regexp: "ZSH_THEME="
 
-- name: "authorized SSH keys for {{item.username}}"
-  authorized_key:
-    user: "{{item.username}}"
-    key: "{{item.ssh_key | join('\n')}}"
-    exclusive: yes
+- name: "authorized SSH keys for {{ item.username }}"
+  ansible.builtin.authorized_key:
+    user: "{{ item.username }}"
+    key: "{{ item.ssh_key  | join('\n')}}"
+    exclusive: true

@@ -1,6 +1,7 @@
 ---
 # Used only for initial setup, which is why the `root` user is specified.
-- hosts: all
+- name: Initial setup
+  hosts: all
   remote_user: root
   roles:
     - upgrade

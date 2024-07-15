@@ -1,12 +1,15 @@
-- name: enable minecraft service
+---
+- name: Enable minecraft service
   become: true
-  shell: systemctl daemon-reload; systemctl enable minecraft.service
+  ansible.builtin.shell: systemctl daemon-reload; systemctl enable minecraft.service
 
-- name: restart minecraft service
+- name: Restart minecraft service
   become: true
-  shell: systemctl restart minecraft.service
+  ansible.builtin.shell: systemctl restart minecraft.service
 
-- name: restart Apache server
+- name: Restart Apache server
   become: true
-  service: name=apache2 state=restarted
-  ignore_errors: yes
+  ansible.builtin.service:
+    name: apache2
+    state: restarted
+  ignore_errors: true

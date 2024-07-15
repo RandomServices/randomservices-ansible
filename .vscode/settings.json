@@ -1,0 +1,8 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "redhat.vscode-yaml",
+  "files.associations": {
+    "inventory": "ansible",
+    "*.yml": "ansible",
+  }
+}

@@ -1,0 +1,3 @@
+---
+- name: Swappiness changed
+  ansible.builtin.command: "/sbin/sysctl vm.swappiness={{ common_swappiness }}"
