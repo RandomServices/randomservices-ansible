@@ -1,5 +1,6 @@
 ---
-- hosts: minecraft
+- name: Minecraft Server
+  hosts: minecraft
   become: true
   roles:
     - minecraft

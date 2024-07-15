@@ -1,10 +1,12 @@
-- name: update Aptitude cache
-  apt: update_cache=yes
+- name: Update Aptitude cache
+  ansible.builtin.apt:
+    update_cache: true
 
-- name: aptitude
-  apt:
+- name: Aptitude
+  ansible.builtin.apt:
     pkg: aptitude
     state: latest
 
-- name: upgrade Aptitude packages
-  apt: upgrade=full
+- name: Upgrade Aptitude packages
+  ansible.builtin.apt:
+    upgrade: full

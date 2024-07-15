@@ -1,5 +1,5 @@
 ---
 - name: ACL
-  apt:
+  ansible.builtin.apt:
     name: acl
     state: present

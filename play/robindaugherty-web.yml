@@ -1,5 +1,6 @@
 ---
-- hosts: robindaugherty-web
+- name: RobinDaugherty website
+  hosts: robindaugherty-web
   become: true
   vars_files:
     - vars/robindaugherty-web.yml

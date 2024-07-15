@@ -1,46 +1,46 @@
 ---
 - name: web server service
-  template:
-    src: systemd-web.conf 
+  ansible.builtin.template:
+    src: systemd-web.conf
     dest: /etc/systemd/system/{{ app.name }}.service
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   register: web_service
 
 - name: web server restarter service
-  template:
-    src: systemd-web-restarter.conf 
+  ansible.builtin.template:
+    src: systemd-web-restarter.conf
     dest: /etc/systemd/system/{{ app.name }}-restart.service
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   register: web_service_restarter
 
 - name: web server restarter activator
-  template:
-    src: systemd-web-restarter-path.conf 
+  ansible.builtin.template:
+    src: systemd-web-restarter-path.conf
     dest: /etc/systemd/system/{{ app.name }}-restart.path
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   register: web_service_restarter_activator
 
 - name: reload system daemons
-  systemd:
-    daemon_reload: yes
+  ansible.builtin.systemd:
+    daemon_reload: true
   when: web_service.changed or web_service_restarter.changed or web_service_restarter_activator.changed
 
 - name: restart web server
-  systemd:
+  ansible.builtin.systemd:
     name: "{{ app.name }}.service"
-    enabled: yes
+    enabled: true
     state: restarted
   when: web_service.changed
 
 - name: restart web server restart trigger
-  systemd:
+  ansible.builtin.systemd:
     name: "{{ app.name }}-restart.path"
-    enabled: yes
+    enabled: true
     state: restarted
   when: web_service_restarter_activator.changed

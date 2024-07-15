@@ -1,5 +1,6 @@
 ---
-- hosts: finch-production
+- name: Finch Production
+  hosts: finch-production
   become: true
   vars_files:
     - vars/finch_production.yml

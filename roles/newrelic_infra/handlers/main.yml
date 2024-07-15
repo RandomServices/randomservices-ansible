@@ -1,4 +1,0 @@
-- name: Restart New Relic Infrastructure Agent
-  service:
-    name: newrelic-infra
-    state: restarted

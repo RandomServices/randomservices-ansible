@@ -1,5 +1,6 @@
 ---
-- hosts: releasemaker-staging
+- name: Releasemaker Staging
+  hosts: releasemaker-staging
   become: true
   vars_files:
     - vars/releasemaker_staging.yml

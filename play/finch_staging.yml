@@ -1,5 +1,6 @@
 ---
-- hosts: finch-staging
+- name: Finch Staging
+  hosts: finch-staging
   become: true
   vars_files:
     - vars/finch_staging.yml

@@ -1,5 +1,5 @@
 - name: install Apache apt packages
-  apt:
+  ansible.builtin.apt:
     name:
     - apache2
     state: latest

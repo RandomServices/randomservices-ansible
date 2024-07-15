@@ -1,6 +1,6 @@
 ---
 - name: software-properties-common package
-  apt:
+  ansible.builtin.apt:
     name: software-properties-common
     state: present
 
@@ -10,7 +10,12 @@
     dest: /usr/local/rbenv
 
 - name: rbenv profile initializer
-  template: src=profile-rbenv.sh dest=/etc/profile.d/rbenv.sh owner=root group=root mode=0644
+  template:
+    src: profile-rbenv.sh
+    dest: /etc/profile.d/rbenv.sh
+    owner: root
+    group: root
+    mode: "0644"
 
 - name: git clone ruby-build
   git:

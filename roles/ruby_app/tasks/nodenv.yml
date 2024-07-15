@@ -1,18 +1,23 @@
 ---
 - name: software-properties-common package
-  apt:
+  ansible.builtin.apt:
     name: software-properties-common
     state: present
 
 - name: git clone rbenv
-  git:
+  ansible.builtin.git:
     repo: https://github.com/nodenv/nodenv.git
     dest: /usr/local/nodenv
 
 - name: nodenv profile initializer
-  template: src=profile-nodenv.sh dest=/etc/profile.d/nodenv.sh owner=root group=root mode=0644
+  ansible.builtin.template:
+    src: profile-nodenv.sh
+    dest: /etc/profile.d/nodenv.sh
+    owner: root
+    group: root
+    mode: "0644"
 
 - name: git clone node-build
-  git:
+  ansible.builtin.git:
     repo: https://github.com/nodenv/node-build.git
     dest: /usr/local/nodenv/plugins/node-build

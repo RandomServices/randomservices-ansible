@@ -1,7 +1,7 @@
 ---
 - name: Update Aptitude cache
   ansible.builtin.apt:
-    update_cache: yes
+    update_cache: true
 
 - name: Various required packages
   ansible.builtin.apt:
@@ -14,4 +14,4 @@
       - haveged
       - openssh-client
       - openssh-server
-    state: latest
+    state: present

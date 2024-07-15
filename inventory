@@ -28,26 +28,26 @@ production:
       hosts:
         web01.do.rndsvc.net:
       vars:
-        ruby_app_web: yes
-        ruby_app_worker: yes
+        ruby_app_web: true
+        ruby_app_worker: true
     releasemaker-staging:
       hosts:
         web01.do.rndsvc.net:
       vars:
-        ruby_app_web: yes
-        ruby_app_worker: yes
+        ruby_app_web: true
+        ruby_app_worker: true
     finch-production:
       hosts:
         web01.do.rndsvc.net:
       vars:
-        ruby_app_web: yes
-        ruby_app_worker: yes
+        ruby_app_web: true
+        ruby_app_worker: true
     finch-staging:
       hosts:
         web01.do.rndsvc.net:
       vars:
-        ruby_app_web: yes
-        ruby_app_worker: yes
+        ruby_app_web: true
+        ruby_app_worker: true
     robindaugherty-web:
       hosts:
         web01.do.rndsvc.net:

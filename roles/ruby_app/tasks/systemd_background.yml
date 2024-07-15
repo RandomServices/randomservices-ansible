@@ -1,46 +1,46 @@
 ---
 - name: background service
-  template:
-    src: systemd-background.conf 
+  ansible.builtin.template:
+    src: systemd-background.conf
     dest: /etc/systemd/system/{{ app.name }}-background.service
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   register: background
 
 - name: background restarter service
-  template:
-    src: systemd-background-restarter.conf 
+  ansible.builtin.template:
+    src: systemd-background-restarter.conf
     dest: /etc/systemd/system/{{ app.name }}-background-restart.service
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   register: background_restarter
 
 - name: background restarter activator
-  template:
-    src: systemd-background-restarter-path.conf 
+  ansible.builtin.template:
+    src: systemd-background-restarter-path.conf
     dest: /etc/systemd/system/{{ app.name }}-background-restart.path
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   register: background_restarter_activator
 
 - name: reload system daemons
-  systemd:
-    daemon_reload: yes
+  ansible.builtin.systemd:
+    daemon_reload: true
   when: background.changed or background_restarter.changed or background_restarter_activator.changed
 
 - name: restart background
-  systemd:
+  ansible.builtin.systemd:
     name: "{{ app.name }}-background.service"
-    enabled: yes
+    enabled: true
     state: restarted
   when: background.changed
 
 - name: restart background restart trigger
-  systemd:
+  ansible.builtin.systemd:
     name: "{{ app.name }}-background-restart.path"
-    enabled: yes
+    enabled: true
     state: restarted
   when: background_restarter_activator.changed

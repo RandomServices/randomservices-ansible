@@ -1,5 +1,0 @@
-license_key: {{new_relic_license_key}}
-custom_attributes:
-  serviceType: {{service_type | default("") }}
-  environmentType: {{environment_type }}
-  cluster: {{cluster | default("") }}

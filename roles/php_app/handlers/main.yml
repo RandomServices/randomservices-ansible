@@ -1,8 +1,8 @@
 - name: Run New Relic Installer
-  shell: "NR_INSTALL_SILENT=true NR_INSTALL_KEY={{ newrelic_license_key }} newrelic-install install"
+  ansible.builtin.shell: "NR_INSTALL_SILENT=true NR_INSTALL_KEY={{ newrelic_license_key }} newrelic-install install"
   notify:
     - Restart Apache HTTP server
 
 - name: Restart Apache HTTP server
   service: name=apache2 state=restarted
-  ignore_errors: yes
+  ignore_errors: true

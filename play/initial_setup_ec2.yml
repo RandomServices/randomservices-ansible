@@ -1,6 +1,7 @@
 ---
 # Used only for initial setup, which is why the user is specified.
-- hosts: all
+- name: Initial Setup for EC2 instances
+  hosts: all
   remote_user: ubuntu
   become: true
   roles:

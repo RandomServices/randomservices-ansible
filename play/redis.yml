@@ -1,7 +1,0 @@
----
-- hosts: redis-production
-  become: true
-  vars_files:
-    - vars/redis.yml
-  roles:
-    - redis

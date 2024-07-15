@@ -10,15 +10,13 @@
     - fail2ban
     - groups
     - users
-- name: Redis
-  import_playbook: redis.yml
 - name: Finch Production
-  import_playbook: finch_production.yml
+  ansible.builtin.import_playbook: finch_production.yml
 - name: Finch Staging
-  import_playbook: finch_staging.yml
+  ansible.builtin.import_playbook: finch_staging.yml
 - name: Releasemaker Production
-  import_playbook: releasemaker_production.yml
+  ansible.builtin.import_playbook: releasemaker_production.yml
 - name: Releasemaker Staging
-  import_playbook: releasemaker_staging.yml
+  ansible.builtin.import_playbook: releasemaker_staging.yml
 - name: Minecraft
-  import_playbook: minecraft.yml
+  ansible.builtin.import_playbook: minecraft.yml

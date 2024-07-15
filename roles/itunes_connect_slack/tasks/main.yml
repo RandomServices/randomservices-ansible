@@ -1,27 +1,27 @@
 ---
-- name: docker
-  apt:
+- name: Package docker
+  ansible.builtin.apt:
     name: docker
     state: present
 
-- name: python-pip
-  apt:
+- name: Package python-pip
+  ansible.builtin.apt:
     name: python-pip
     state: present
 
-- name: docker-py
-  pip:
+- name: Package docker-py
+  ansible.builtin.pip:
     name: docker-py
     state: present
 
-- name: code repo
-  git:
+- name: Code repo
+  ansible.builtin.git:
     repo: https://github.com/RobinDaugherty/itunes-connect-slack.git
     dest: /tmp/itunes-connect-slack
   register: git_repo
 
-- name: docker image
-  docker_image:
+- name: Docker image
+  docker.docker_image:
     path: /tmp/itunes-connect-slack
     name: itunes_connect_slack
     force: "{{ git_repo.changed }}"
@@ -33,8 +33,8 @@
       APP_BUNDLE_ID: "{{ itunes_connect_slack.app_bundle_id }}"
   register: docker_image
 
-- name: docker container
-  docker_container:
+- name: Docker container
+  nickjj.docker.docker_container:
     name: "{{ itunes_connect_slack.name }}"
     image: itunes_connect_slack
     network_mode: bridge

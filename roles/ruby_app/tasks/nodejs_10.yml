@@ -1,32 +1,33 @@
 ---
 - name: apt gpg key for node
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
     state: present
 
 - name: apt gpg key for yarn
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://dl.yarnpkg.com/debian/pubkey.gpg
     state: present
 
 - name: apt repository for node
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: deb https://deb.nodesource.com/node_10.x bionic main
 
 - name: apt src repository for node
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: deb-src https://deb.nodesource.com/node_10.x bionic main
 
 - name: apt repository for yarn
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: deb https://dl.yarnpkg.com/debian/ stable main
 
 - name: update Aptitude cache
-  apt: update_cache=yes
+  ansible.builtin.apt:
+    update_cache: true
 
 - name: node.js and yarn
-  apt:
+  ansible.builtin.apt:
     name:
     - nodejs
     - yarn
-    state: latest
+    state: present

@@ -1,7 +1,7 @@
 - include_vars: 'newrelic.yml'
 
 - name: install PHP apt packages
-  apt:
+  ansible.builtin.apt:
     name:
     - libapache2-mod-php5
     - composer
@@ -10,7 +10,7 @@
     state: latest
 
 - name: install NewRelic PHP module
-  apt:
+  ansible.builtin.apt:
     name: newrelic-php5
     state: latest
   notify:
@@ -26,5 +26,5 @@
   register: created_rndsvc_php_config
 
 - name: activate custom PHP config
-  shell: php5enmod rndsvc
+  ansible.builtin.shell: php5enmod rndsvc
   when: created_rndsvc_php_config.changed

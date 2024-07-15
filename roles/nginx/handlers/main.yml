@@ -1,12 +1,19 @@
+---
 - name: nginx should be reloaded
   # reloading the service always fails, so we're restarting instead
-  service: name=nginx state=restarted
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
 
 - name: nginx should be restarted
-  service: name=nginx state=restarted
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
 
 - name: sysctl should be reloaded
-  shell: sysctl -p
+  ansible.builtin.shell: sysctl -p
 
 - name: rsyslog should be reloaded
-  service: name=rsyslog state=restarted
+  ansible.builtin.service:
+    name: rsyslog
+    state: restarted

@@ -1,5 +1,6 @@
 ---
-- hosts: releasemaker-production
+- name: Releasemaker Production
+  hosts: releasemaker-production
   become: true
   vars_files:
     - vars/releasemaker_production.yml

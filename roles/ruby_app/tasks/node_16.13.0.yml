@@ -1,14 +1,14 @@
 ---
 - name: detect existing Node 16.13.0
-  command: /usr/local/nodenv/versions/16.13.0/bin/node --version 2>&1 | grep "16.13.0"
+  ansible.builtin.comment: /usr/local/nodenv/versions/16.13.0/bin/node --version 2>&1 | grep "16.13.0"
   register: existing_node
   ignore_errors: true
 
 - name: install Node 16.13.0
-  shell: NODENV_ROOT=/usr/local/nodenv /usr/local/nodenv/bin/nodenv install 16.13.0
+  ansible.builtin.shell: NODENV_ROOT=/usr/local/nodenv /usr/local/nodenv/bin/nodenv install 16.13.0
   register: installed_node
   when: existing_node.failed
 
 - name: install yarn for Node 16.13.0
-  shell: NODENV_ROOT=/usr/local/nodenv NODENV_VERSION=16.13.0 /usr/local/nodenv/bin/nodenv exec npm install -g yarn
+  ansible.builtin.shell: NODENV_ROOT=/usr/local/nodenv NODENV_VERSION=16.13.0 /usr/local/nodenv/bin/nodenv exec npm install -g yarn
   when: installed_node.changed
