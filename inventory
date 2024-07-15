@@ -6,8 +6,12 @@
 do:
   hosts:
     web01.do.rndsvc.net:
+      vars:
+        ansible_python_interpreter: /usr/bin/python3
     web02.do.rndsvc.net:
-    redis01.do.rndsvc.net:
+      vars:
+        ansible_python_interpreter: /usr/bin/python3
+    web03.do.rndsvc.net:
 
 #
 # Function groups:
@@ -20,7 +24,6 @@ production:
           ansible_host: nyc3.do.jump.rndsvc.net
     redis-production:
       hosts:
-        redis01.do.rndsvc.net:
     releasemaker-production:
       hosts:
         web01.do.rndsvc.net:
@@ -55,7 +58,3 @@ production:
 redis:
   children:
     redis-production:
-
-all:
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
