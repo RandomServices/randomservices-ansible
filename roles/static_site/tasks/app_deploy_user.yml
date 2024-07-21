@@ -1,0 +1,33 @@
+---
+- name: "Create directory to hold deployment SSH keys for {{ app.name }}"
+  file:
+    name: "/home/{{ app.name }}/.ssh/keys"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: "Download github user SSH keys for deployment of {{ app.name }}"
+  get_url:
+    dest: "/home/{{ app.name }}/.ssh/keys"
+    url: "{{ item }}"
+    owner: root
+    group: root
+    mode: "0644"
+  with_items: "{{ app.deployment_key_urls | default ([]) }}"
+
+- name: "Deployment SSH key(s) for {{ app.name }}"
+  copy:
+    content: '{{ app.deployment_key | default("") }}'
+    dest: "/home/{{ app.name }}/.ssh/keys/deployment"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: "Assemble deployment SSH keys for {{ app.name }}"
+  assemble:
+    dest: "/home/{{ app.name }}/.ssh/authorized_keys"
+    src: "/home/{{ app.name }}/.ssh/keys"
+    owner: root
+    group: root
+    mode: "0644"

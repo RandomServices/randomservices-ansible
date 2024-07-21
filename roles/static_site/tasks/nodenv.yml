@@ -1,0 +1,37 @@
+---
+- name: Software-properties-common package
+  ansible.builtin.apt:
+    name: software-properties-common
+    state: present
+
+- name: Nodenv
+  become: true
+  become_user: "{{ app.name }}"
+  ansible.builtin.git:
+    repo: https://github.com/nodenv/nodenv.git
+    dest: /home/{{ app.name }}/.nodenv
+
+- name: Node-build for nodenv
+  become: true
+  become_user: "{{ app.name }}"
+  ansible.builtin.git:
+    repo: https://github.com/nodenv/node-build.git
+    dest: /home/{{ app.name }}/.nodenv/plugins/node-build
+
+- name: Nodenv profile init
+  become: true
+  become_user: "{{ app.name }}"
+  ansible.builtin.template:
+    src: profile-nodenv.sh
+    dest: /home/{{ app.name }}/.profile-nodenv.sh
+    mode: "0644"
+
+- name: Nodenv init in .profile
+  become: true
+  become_user: "{{ app.name }}"
+  ansible.builtin.lineinfile:
+    dest: /home/{{ app.name }}/.profile
+    create: true
+    mode: u=rwx,g=r,o=r
+    state: present
+    line: ". ~/.profile-nodenv.sh"

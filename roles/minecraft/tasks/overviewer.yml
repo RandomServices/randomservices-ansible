@@ -28,7 +28,7 @@
   ansible.builtin.user:
     name: minecraft_overviewer
     group: minecraft_overviewer
-    ansible.builtin.shell: /bin/false
+    shell: /bin/false
     uid: 701
     createhome: true
 

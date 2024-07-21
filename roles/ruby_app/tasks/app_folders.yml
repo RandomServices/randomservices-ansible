@@ -1,6 +1,14 @@
 ---
 - name: directory /var/www/{{ app.name }}
-  file: path=/var/www/{{ app.name }} state=directory group=webapps owner={{ app.name }}
+  ansible.builtin.file:
+    path: /var/www/{{ app.name }}
+    state: directory
+    group: webapps
+    owner: {{ app.name }}
 
 - name: directory /var/www/{{ app.name }}/shared
-  file: path=/var/www/{{ app.name }}/shared state=directory group=webapps owner={{ app.name }}
+  ansible.builtin.file:
+    path: /var/www/{{ app.name }}/shared
+    state: directory
+    group: webapps
+    owner: {{ app.name }}

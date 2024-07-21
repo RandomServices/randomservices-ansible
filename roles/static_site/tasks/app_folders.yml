@@ -1,0 +1,16 @@
+---
+- name: "App dir for {{ app.name }}"
+  ansible.builtin.file:
+    path: "/var/www/{{ app.name }}"
+    state: directory
+    group: webapps
+    owner: "{{ app.name }}"
+    mode: u=rwX,g=rX,o=rX
+
+- name: "Share dir /var/www/{{ app.name }}/shared"
+  ansible.builtin.file:
+    path: "/var/www/{{ app.name }}/shared"
+    state: directory
+    group: webapps
+    owner: "{{ app.name }}"
+    mode: u=rwX,g=rX,o=rX

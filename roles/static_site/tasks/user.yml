@@ -12,16 +12,23 @@
     group: webapps
     state: present
 
-- name: ".ssh directory for {{ app.name }}"
+- name: "Home directory for {{ app.name }}"
+  ansible.builtin.file:
+    path: "/home/{{ app.name }}"
+    state: directory
+    owner: "{{ app.name }}"
+    group: webapps
+    mode: u=rwx,g=rwx,o=
+
+- name: "SSH config directory for {{ app.name }}"
   ansible.builtin.file:
     path: "/home/{{ app.name }}/.ssh"
     state: directory
-    group: webapps
     owner: "{{ app.name }}"
-    recurse: true
+    group: webapps
 
 # This is optional. If set, it's used by the application when it uses SSH to connect outward.
-- name: "SSH Key for {{ app.name }}"
+- name: "SSH key for {{ app.name }}"
   ansible.builtin.copy:
     dest: "/home/{{ app.name }}/.ssh/id_rsa"
     content: "{{ app.ssh_key.private }}"

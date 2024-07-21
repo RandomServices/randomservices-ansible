@@ -1,0 +1,9 @@
+---
+- name: Sarah Makes Stuff website
+  hosts: sarahmakesstuff-web
+  become: true
+  vars_files:
+    - vars/sarahmakesstuff-web.yml
+  roles:
+    - nginx
+    - static_site

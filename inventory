@@ -51,6 +51,9 @@ production:
     robindaugherty-web:
       hosts:
         web01.do.rndsvc.net:
+    sarahmakesstuff-web:
+      hosts:
+        web03.do.rndsvc.net:
     minecraft:
       hosts:
         crafty.rndsvc.net:

@@ -1,0 +1,22 @@
+---
+- name: "SSL certificate for {{ virtual_host.name }}"
+  ansible.builtin.template:
+    src: ssl_cert.pem
+    dest: /etc/nginx/ssl/{{ app.name }}-{{ virtual_host.name }}.crt
+    owner: root
+    group: root
+    mode: "0640"
+  when: virtual_host.ssl is defined
+  notify:
+    - nginx should be reloaded
+
+- name: "SSL key for {{ virtual_host.name }}"
+  ansible.builtin.template:
+    src: ssl_key.pem
+    dest: /etc/nginx/ssl/{{ app.name }}-{{ virtual_host.name }}.key
+    owner: root
+    group: root
+    mode: "0640"
+  when: virtual_host.ssl is defined
+  notify:
+    - nginx should be reloaded

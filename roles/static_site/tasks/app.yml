@@ -1,0 +1,10 @@
+---
+- ansible.builtin.import_tasks: user.yml
+- ansible.builtin.import_tasks: nodenv.yml
+- ansible.builtin.import_tasks: app_folders.yml
+- ansible.builtin.import_tasks: app_deploy_user.yml
+- ansible.builtin.import_tasks: app_command.yml
+- ansible.builtin.include_tasks: secret_files.yml
+  when: app.secret_files is defined
+
+- ansible.builtin.include_tasks: nginx_virtual_host.yml

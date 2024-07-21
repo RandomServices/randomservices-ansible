@@ -69,7 +69,7 @@
   ansible.builtin.user:
     name: minecraft
     group: minecraft
-    ansible.builtin.shell: /bin/false
+    shell: /bin/false
     uid: 700
     createhome: true
 

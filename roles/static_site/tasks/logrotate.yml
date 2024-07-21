@@ -1,0 +1,8 @@
+---
+- name: "configure logrotate for app"
+  template:
+    src: logrotate.conf
+    dest: /etc/logrotate.d/{{ app.name }}
+    owner: root
+    group: root
+    mode: "0644"

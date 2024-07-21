@@ -1,0 +1,9 @@
+- name: Nginx should be reloaded
+  ansible.builtin.service:
+    name: nginx
+    state: reloaded
+
+- name: Nginx should be restarted
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
