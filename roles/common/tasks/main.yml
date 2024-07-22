@@ -7,6 +7,8 @@
   ansible.builtin.import_tasks: acl.yml
 - name: Sysctl
   ansible.builtin.import_tasks: sysctl.yml
+- name: Sudo
+  ansible.builtin.import_tasks: sudo.yml
 - name: Root CA
   ansible.builtin.import_tasks: root_ca.yml
 - name: ZSH

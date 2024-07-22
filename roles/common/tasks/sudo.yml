@@ -1,0 +1,12 @@
+---
+- name: Enable sudoer SSH agent passthrough
+  ansible.builtin.lineinfile:
+    dest: /etc/sudoers
+    line: 'Defaults:%sudo env_keep += "SSH_AGENT_PID SSH_AUTH_SOCK"'
+    regexp: '(# +)?Defaults:%sudo env_keep \+= "SSH_AGENT_PID SSH_AUTH_SOCK"'
+
+- name: Enable sudoer git committer identity
+  ansible.builtin.lineinfile:
+    dest: /etc/sudoers
+    line: 'Defaults:%sudo env_keep += "GIT_AUTHOR_* GIT_COMMITTER_*"'
+    regexp: '(# +)?Defaults:%sudo env_keep \+= "GIT_AUTHOR_\* GIT_COMMITTER_\*"'
