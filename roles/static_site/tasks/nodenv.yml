@@ -9,6 +9,7 @@
   become_user: "{{ app.name }}"
   ansible.builtin.git:
     repo: https://github.com/nodenv/nodenv.git
+    force: true
     dest: /home/{{ app.name }}/.nodenv
 
 - name: Node-build for nodenv
@@ -16,6 +17,7 @@
   become_user: "{{ app.name }}"
   ansible.builtin.git:
     repo: https://github.com/nodenv/node-build.git
+    force: true
     dest: /home/{{ app.name }}/.nodenv/plugins/node-build
 
 - name: Nodenv profile init
