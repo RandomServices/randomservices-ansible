@@ -1,0 +1,9 @@
+---
+- name: Astro Production
+  hosts: astro-production
+  become: true
+  vars_files:
+    - vars/astro_production.yml
+  roles:
+    - postgresql_client
+    - ruby_app

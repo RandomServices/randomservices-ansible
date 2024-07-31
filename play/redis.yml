@@ -1,0 +1,8 @@
+---
+- name: Redis
+  hosts: redis
+  become: true
+  vars_files:
+    - vars/redis.yml
+  roles:
+    - redis

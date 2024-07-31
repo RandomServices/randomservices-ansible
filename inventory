@@ -22,8 +22,15 @@ production:
       hosts:
         jump01.nyc3.do.rndsvc.net:
           ansible_host: nyc3.do.jump.rndsvc.net
-    redis-production:
+    redis:
       hosts:
+        web03.do.rndsvc.net:
+    astro-production:
+      hosts:
+        web03.do.rndsvc.net:
+      vars:
+        ruby_app_worker: true
+        ruby_app_web: true
     releasemaker-production:
       hosts:
         web01.do.rndsvc.net:
@@ -57,7 +64,3 @@ production:
     minecraft:
       hosts:
         crafty.rndsvc.net:
-
-redis:
-  children:
-    redis-production:

@@ -15,7 +15,7 @@
 
 - name: Update Aptitude cache
   ansible.builtin.apt:
-    update_cache: true"
+    update_cache: true
 
 - name: Package postgresql-client-13
   ansible.builtin.apt:
