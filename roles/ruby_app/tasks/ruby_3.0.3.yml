@@ -1,6 +1,6 @@
 ---
 - name: detect existing Ruby 3.0.3
-  ansible.builtin.comment: /usr/local/rbenv/versions/3.0.3/bin/ruby --version 2>&1 | grep "ruby 3.0.3"
+  ansible.builtin.command: /usr/local/rbenv/versions/3.0.3/bin/ruby --version 2>&1 | grep "ruby 3.0.3"
   register: existing_mri
   ignore_errors: true
 

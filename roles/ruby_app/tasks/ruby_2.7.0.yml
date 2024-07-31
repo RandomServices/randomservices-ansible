@@ -1,6 +1,6 @@
 ---
 - name: detect existing Ruby 2.7.0
-  ansible.builtin.comment: /usr/local/rbenv/versions/2.7.0/bin/ruby --version 2>&1 | grep "ruby 2.7.0"
+  ansible.builtin.command: /usr/local/rbenv/versions/2.7.0/bin/ruby --version 2>&1 | grep "ruby 2.7.0"
   register: existing_mri
   ignore_errors: true
 

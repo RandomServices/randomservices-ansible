@@ -4,11 +4,11 @@
     path: /var/www/{{ app.name }}
     state: directory
     group: webapps
-    owner: {{ app.name }}
+    owner: "{{ app.name }}"
 
 - name: directory /var/www/{{ app.name }}/shared
   ansible.builtin.file:
     path: /var/www/{{ app.name }}/shared
     state: directory
     group: webapps
-    owner: {{ app.name }}
+    owner: "{{ app.name }}"

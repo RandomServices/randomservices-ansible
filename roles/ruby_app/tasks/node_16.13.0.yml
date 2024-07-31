@@ -1,6 +1,6 @@
 ---
 - name: detect existing Node 16.13.0
-  ansible.builtin.comment: /usr/local/nodenv/versions/16.13.0/bin/node --version 2>&1 | grep "16.13.0"
+  ansible.builtin.command: /usr/local/nodenv/versions/16.13.0/bin/node --version 2>&1 | grep "16.13.0"
   register: existing_node
   ignore_errors: true
 
