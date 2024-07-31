@@ -1,9 +1,16 @@
 ---
+- name: Postgres client for Astro Production
+  hosts: astro-production
+  become: true
+  vars:
+    postgresql_version: 15
+  roles:
+    - ome.postgresql_client
 - name: Astro Production
   hosts: astro-production
   become: true
   vars_files:
     - vars/astro_production.yml
   roles:
-    - postgresql_client
+    - nginx
     - ruby_app

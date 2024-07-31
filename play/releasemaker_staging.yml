@@ -1,4 +1,11 @@
 ---
+- name: Postgres client for Releasemaker Staging
+  hosts: astro-production
+  become: true
+  vars:
+    postgresql_version: 15
+  roles:
+    - ome.postgresql_client
 - name: Releasemaker Staging
   hosts: releasemaker-staging
   become: true
@@ -6,5 +13,4 @@
     - vars/releasemaker_staging.yml
   roles:
     - nginx
-    - postgresql_client
     - ruby_app
