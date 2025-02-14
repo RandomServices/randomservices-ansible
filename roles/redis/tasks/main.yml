@@ -21,7 +21,7 @@
   lineinfile:
     dest: "/etc/redis/redis.conf"
     line: "maxmemory {{ (ansible_memtotal_mb - 256) * 1024 * 1024 }}"
-    insertafter: "^# maxmemory"
+    insertafter: "^# maxmemory "
     regexp: "^maxmemory .+"
   notify: redis needs to be started
 
