@@ -5,9 +5,6 @@
 # One group for each data center at each provider.
 do:
   hosts:
-    web01.do.rndsvc.net:
-      vars:
-        ansible_python_interpreter: /usr/bin/python3
     web02.do.rndsvc.net:
       vars:
         ansible_python_interpreter: /usr/bin/python3
@@ -25,42 +22,6 @@ production:
     redis:
       hosts:
         web03.do.rndsvc.net:
-    astro-production:
-      hosts:
-        web03.do.rndsvc.net:
-      vars:
-        ruby_app_worker: true
-        ruby_app_web: true
-    releasemaker-production:
-      hosts:
-        web01.do.rndsvc.net:
-      vars:
-        ruby_app_web: true
-        ruby_app_worker: true
-    releasemaker-staging:
-      hosts:
-        web01.do.rndsvc.net:
-      vars:
-        ruby_app_web: true
-        ruby_app_worker: true
-    finch-production:
-      hosts:
-        web01.do.rndsvc.net:
-      vars:
-        ruby_app_web: true
-        ruby_app_worker: true
-    finch-staging:
-      hosts:
-        web01.do.rndsvc.net:
-      vars:
-        ruby_app_web: true
-        ruby_app_worker: true
-    robindaugherty-web:
-      hosts:
-        web01.do.rndsvc.net:
     sarahmakesstuff-web:
       hosts:
         web03.do.rndsvc.net:
-    minecraft:
-      hosts:
-        crafty.rndsvc.net:
