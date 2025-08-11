@@ -1,12 +1,6 @@
 ---
 - name: Aptitude
   ansible.builtin.import_tasks: aptitude.yml
-- name: Logrotate
-  ansible.builtin.import_tasks: logrotate.yml
-- name: ACL
-  ansible.builtin.import_tasks: acl.yml
-- name: Sysctl
-  ansible.builtin.import_tasks: sysctl.yml
 - name: Sudo
   ansible.builtin.import_tasks: sudo.yml
 - name: Root CA

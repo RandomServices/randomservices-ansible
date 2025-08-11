@@ -1,13 +1,4 @@
 ---
-- name: Install git and zsh
-  ansible.builtin.apt:
-    name: "{{ item }}"
-    state: present
-    update_cache: true
-  with_items:
-    - git
-    - git-core
-
 - name: "Active users"
   ansible.builtin.include_tasks: "active_user.yml"
   with_items: "{{ active_users }}"
