@@ -8,7 +8,7 @@ Ansible 2.3 or higher is required.
 
 1. Install Ansible following the [Installation instructions].
 
-1. Get the Ansible vault password from the 1Password vault. Place the passphrase in a file named `.vault-pass` (which is specifically ignored by git).
+1. Install 1Password and the [1Password CLI](https://developer.1password.com/docs/cli/get-started/)
 
 1. Use Ansible Galaxy to install dependent roles: `ansible-galaxy install -r requirements.yml --roles-path .galaxy-roles`
 
@@ -26,24 +26,18 @@ You should create a `inventory-dev` for testing changes to Ansible, and the devi
 By default when running ansible, all servers in a specified inventory file will be updated.
 To limit to a specific host, host group, or hostname pattern add the `-l <hostname>` option to the command line.
 
-### Encrypted files using Vault
+### Encrypted values using Vault
 
-When data such as passwords or encryption keys are needed by Ansible, we need to store that information in this repo, but we still need that data to remain private.
-We do this by encrypting the file(s) that contain that data using Ansible Vault.
+When data such as passwords or encryption keys are needed by Ansible, we store that information in this repo, but we still need that data to remain private.
+We do this by encrypting those sensitive values, using Ansible Vault.
 
-As with other variables needed in Ansible, these are stored in yml files in the `vars/` folder of the role in which they are used.
-The data, for example a password string, is stored as a variable with a name.
-Then the variable can be used in the Ansible tasks.
+Ansible is configured (in `ansible.cfg`) to call the `vault-pass-1password-client.sh` script,
+which uses the 1Password CLI.
+So you must have 1Password installed locally and authenticated with the correct 1Password account.
 
-Place the passphrase in the `.vault-pass` file.
-That file will be ignored by git. Never commit the passphrase to git!
-
-The [Ansible documentation](http://docs.ansible.com/playbooks_vault.html#creating-encrypted-files) is pretty straightforward.
-If you use use TextMate, you can set `EDITOR='mate -w'` so that the command will wait for the editor to finish.
-
-So for example, to edit an existing Vault-encrypted file, wait for you to edit and close the file, then encrypt the new contents:
-
-    EDITOR='mate -w' ansible-vault edit roles/web_server/vars/ssl.yml
+Originally whole files were encrypted, but we want to encrypt individual YML values instead.
+So going forward, the first time that a value in a fully-encrypted file changes, decrypt the whole
+file and encrypt the specific values that should be kept private.
 
 ## Running Ansible
 
