@@ -1,6 +1,7 @@
 .*
 
 !.vscode
+!.editorconfig
 
 inventory-dev
 *.retry
