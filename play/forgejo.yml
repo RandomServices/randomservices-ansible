@@ -1,20 +1,4 @@
 ---
-- name: Postgresql server
-  hosts: forgejo
-  become: true
-  roles:
-    - geerlingguy.postgresql
-  vars_files:
-    - vars/forgejo.yml
-  vars:
-    postgresql_version: 17
-    postgresql_databases:
-      - name: forgejo
-        owner: forgejo
-    postgresql_users:
-      - name: forgejo
-        password: "{{ forgejo_db_password }}"
-        login_host: localhost
 - name: Docker
   hosts: forgejo
   become: true

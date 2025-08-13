@@ -3,11 +3,14 @@ services:
   forgejo:
     image: codeberg.org/forgejo/forgejo:{{ forgejo_version }}
     container_name: forgejo
+    restart: unless-stopped
+    depends_on:
+      - postgres
     environment:
       - USER_UID={{ forgejo_user_info.uid }}
       - USER_GID={{ forgejo_group_info.gid }}
       - FORGEJO__database__DB_TYPE=postgres
-      - FORGEJO__database__HOST={{ forgejo_db_host }}:{{ forgejo_db_port }}
+      - FORGEJO__database__HOST=forgejo-postgres:5432
       - FORGEJO__database__NAME={{ forgejo_db_name }}
       - FORGEJO__database__USER={{ forgejo_db_user }}
       - FORGEJO__database__PASSWD={{ forgejo_db_password }}
@@ -28,13 +31,23 @@ services:
       - FORGEJO__mailer__PASSWD={{ forgejo_mailer_passwd }}
       - FORGEJO__mailer__FROM={{ forgejo_mailer_from }}
 {% endif %}
-    restart: unless-stopped
     volumes:
       - "{{ forgejo_data_dir }}:/data"
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:
       - "{{ forgejo_ssh_bind }}:22"
+
+  postgres:
+    image: postgres:17
+    container_name: forgejo-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER={{ forgejo_db_user }}
+      - POSTGRES_PASSWORD={{ forgejo_db_password }}
+      - POSTGRES_DB={{ forgejo_db_name }}
+    volumes:
+      - "{{ forgejo_postgres_dir }}:/var/lib/postgresql/data"
 
   caddy:
     image: caddy:latest

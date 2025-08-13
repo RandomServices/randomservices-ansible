@@ -4,6 +4,7 @@ forgejo_group: forgejo
 forgejo_home_dir: /opt/forgejo
 forgejo_data_dir: /opt/forgejo/data
 forgejo_caddy_config_dir: /opt/forgejo/caddy-config
+forgejo_postgres_dir: /opt/forgejo/postgresql-data
 forgejo_http_bind: "127.0.0.1:80"
 forgejo_https_bind: "127.0.0.1:443"
 forgejo_ssh_bind: "127.0.0.1:222"
