@@ -1,0 +1,11 @@
+[project]
+name = "rndsvc-ansible"
+version = "0.1.0"
+description = "Ansible configuration for RNDSVC infrastructure"
+requires-python = ">=3.11"
+dependencies = [
+  "ansible-core~=2.17.0",
+]
+
+[tool.uv]
+dev-dependencies = []

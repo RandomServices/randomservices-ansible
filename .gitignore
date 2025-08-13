@@ -1,8 +1,17 @@
+.*
+
+!.vscode
+!.editorconfig
+!.envrc
+
 inventory-dev
-.vault-pass
-.linode_access_token
 *.retry
 tmp/
 log/
-.DS_Store
-.galaxy-roles
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
