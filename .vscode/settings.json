@@ -1,8 +1,19 @@
 {
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "redhat.vscode-yaml",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.ansible": "explicit"
+  },
   "files.associations": {
     "inventory": "ansible",
     "*.yml": "ansible",
-  }
+    "ansible.cfg": "toml"
+  },
+  "[ansible]": {
+    "editor.defaultFormatter": "redhat.ansible",
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  "ansible.validation.enabled": true,
+  "ansible.validation.lint.enabled": true,
+  "ansible.validation.lint.path": "ansible-lint"
 }
