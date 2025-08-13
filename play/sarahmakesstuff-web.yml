@@ -1,6 +1,6 @@
 ---
 - name: Sarah Makes Stuff website
-  hosts: sarahmakesstuff-web
+  hosts: sarahmakesstuff_web
   become: true
   vars_files:
     - vars/sarahmakesstuff-web.yml

@@ -24,6 +24,6 @@ production:
     redis:
       hosts:
         web03.do.rndsvc.net:
-    sarahmakesstuff-web:
+    sarahmakesstuff_web:
       hosts:
         web03.do.rndsvc.net:
