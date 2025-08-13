@@ -24,7 +24,5 @@
   ansible.builtin.import_playbook: releasemaker_staging.yml
 - name: SarahMakesStuff website
   ansible.builtin.import_playbook: sarahmakesstuff-web.yml
-- name: Minecraft
-  ansible.builtin.import_playbook: minecraft.yml
 - name: Redis
   ansible.builtin.import_playbook: redis.yml

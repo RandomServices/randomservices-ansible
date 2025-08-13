@@ -1,5 +1,0 @@
----
-- name: Minecraft
-  ansible.builtin.import_tasks: minecraft.yml
-- name: Minecraft overviewer.yml
-  ansible.builtin.import_tasks: overviewer.yml
