@@ -4,15 +4,15 @@ We are using Ansible to configure servers.
 
 ## Prerequisites
 
-Ansible 2.3 or higher is required.
-
-1. Install Ansible following the [Installation instructions].
+1. Install [uv](https://docs.astral.sh/uv/getting-started/installation/) for Python dependency management
 
 1. Install 1Password and the [1Password CLI](https://developer.1password.com/docs/cli/get-started/)
 
-1. Use Ansible Galaxy to install dependent roles: `ansible-galaxy install -r requirements.yml --roles-path .galaxy-roles`
+1. Install dependencies: `make install`
 
-[Installation instructions]:http://docs.ansible.com/intro_installation.html
+This will:
+- Install Python dependencies (including ansible-core) using uv
+- Install Ansible Galaxy roles and collections
 
 ### Inventory File
 
