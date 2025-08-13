@@ -26,22 +26,26 @@ argument_specs:
         type: path
         default: /opt/forgejo/data
         description: Data directory for Forgejo
+      forgejo_caddy_config_dir:
+        type: path
+        default: /opt/forgejo/caddy-config
+        description: Directory where the Caddy configuration is stored
       forgejo_http_bind:
         type: str
-        default: "127.0.0.1"
-        description: Bind address for HTTP port (use 0.0.0.0 to expose externally)
-      forgejo_http_port:
-        type: int
-        default: 3000
-        description: Host HTTP port to expose Forgejo web interface
+        default: "127.0.0.1:80"
+        description: Bind address for HTTP port (use 0.0.0.0:80 to expose externally)
+      forgejo_https_bind:
+        type: str
+        default: "127.0.0.1:443"
+        description: Bind address for HTTPS port (use 0.0.0.0:443 to expose externally)
       forgejo_ssh_bind:
         type: str
-        default: "127.0.0.1"
-        description: Bind address for SSH port (use 0.0.0.0 to expose externally)
-      forgejo_ssh_port:
-        type: int
-        default: 2222
-        description: Host SSH port to expose for Git operations
+        default: "127.0.0.1:222"
+        description: Bind address for SSH port (use 0.0.0.0:222 to expose externally)
+      forgejo_external_ssh_port:
+        type: str
+        default: "222"
+        description: Externally-accessible SSH port
       forgejo_db_host:
         type: str
         default: localhost

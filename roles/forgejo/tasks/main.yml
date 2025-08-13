@@ -26,6 +26,21 @@
     - "{{ forgejo_home_dir }}"
     - "{{ forgejo_data_dir }}"
 
+- name: Caddy configuration directory
+  ansible.builtin.file:
+    path: "{{ forgejo_home_dir }}/caddy-config"
+    state: directory
+    owner: "{{ forgejo_user }}"
+    group: "{{ forgejo_group }}"
+    mode: '0755'
+
+- name: Caddy configuration file
+  ansible.builtin.template:
+    src: Caddyfile.j2
+    dest: "{{ forgejo_home_dir }}/caddy-config/Caddyfile"
+    owner: "{{ forgejo_user }}"
+    group: "{{ forgejo_group }}"
+    mode: '0644'
 
 - name: Docker Compose config
   ansible.builtin.template:
@@ -34,9 +49,10 @@
     owner: "{{ forgejo_user }}"
     group: "{{ forgejo_group }}"
     mode: '0644'
-  notify: restart forgejo
+  notify: Restart forgejo
 
 - name: Forgejo service
-  ansible.builtin.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: "{{ forgejo_home_dir }}"
+    project_name: forgejo
     state: present

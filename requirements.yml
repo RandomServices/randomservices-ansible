@@ -8,9 +8,11 @@ roles:
     version: 7.4.7
 
 collections:
-  - name: community.postgresql
-    version: 4.1.0
+  - name: community.docker
+    version: 4.7.0
   - name: community.general
     version: 10.7.3
+  - name: community.postgresql
+    version: 4.1.0
   - name: wzzrd.atuin
     version: 2.1.2

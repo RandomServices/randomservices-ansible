@@ -1,5 +1,6 @@
 ---
 - name: Restart forgejo
-  docker_compose:
+  community.docker.docker_compose_v2:
     project_src: "{{ forgejo_home_dir }}"
-    restarted: true
+    project_name: forgejo
+    state: restarted

@@ -1,0 +1,17 @@
+---
+forgejo_user: forgejo
+forgejo_group: forgejo
+forgejo_home_dir: /opt/forgejo
+forgejo_data_dir: /opt/forgejo/data
+forgejo_caddy_config_dir: /opt/forgejo/caddy-config
+forgejo_http_bind: "127.0.0.1:80"
+forgejo_https_bind: "127.0.0.1:443"
+forgejo_ssh_bind: "127.0.0.1:222"
+forgejo_external_ssh_port: "222"
+forgejo_db_host: localhost
+forgejo_db_port: 5432
+forgejo_db_name: forgejo
+forgejo_db_user: forgejo
+forgejo_mailer_enabled: false
+forgejo_mailer_port: 587
+forgejo_lfs_enabled: false
