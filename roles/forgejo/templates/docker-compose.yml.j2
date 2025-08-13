@@ -26,7 +26,7 @@ services:
 {% endif %}
 {% if forgejo_mailer_enabled %}
       - FORGEJO__mailer__ENABLED=true
-      - FORGEJO__mailer__HOST={{ forgejo_mailer_host }}:{{ forgejo_mailer_port }}
+      - FORGEJO__mailer__SMTP_ADDR={{ forgejo_mailer_host }}:{{ forgejo_mailer_port }}
       - FORGEJO__mailer__USER={{ forgejo_mailer_user }}
       - FORGEJO__mailer__PASSWD={{ forgejo_mailer_passwd }}
       - FORGEJO__mailer__FROM={{ forgejo_mailer_from }}
