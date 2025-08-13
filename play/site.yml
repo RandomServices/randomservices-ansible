@@ -12,6 +12,8 @@
     - users
 - name: Atuin
   ansible.builtin.import_playbook: atuin.yml
+- name: Forgejo
+  ansible.builtin.import_playbook: forgejo.yml
 - name: Astro Production
   ansible.builtin.import_playbook: astro_production.yml
 - name: Finch Production

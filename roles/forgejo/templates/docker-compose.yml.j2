@@ -1,0 +1,40 @@
+---
+services:
+  forgejo:
+    image: codeberg.org/forgejo/forgejo:{{ forgejo_version }}
+    container_name: forgejo
+    environment:
+      - USER_UID={{ forgejo_user_info.uid }}
+      - USER_GID={{ forgejo_group_info.gid }}
+      - FORGEJO__database__DB_TYPE=postgres
+      - FORGEJO__database__HOST={{ forgejo_db_host }}:{{ forgejo_db_port }}
+      - FORGEJO__database__NAME={{ forgejo_db_name }}
+      - FORGEJO__database__USER={{ forgejo_db_user }}
+      - FORGEJO__database__PASSWD={{ forgejo_db_password }}
+      - FORGEJO__security__SECRET_KEY={{ forgejo_secret_key }}
+      - FORGEJO__oauth2__JWT_SECRET={{ forgejo_jwt_secret }}
+      - FORGEJO__server__DOMAIN={{ forgejo_domain }}
+      - FORGEJO__server__SSH_DOMAIN={{ forgejo_ssh_domain | default(forgejo_domain) }}
+      - FORGEJO__server__ROOT_URL={{ forgejo_root_url | default('https://' + forgejo_domain) }}
+      - FORGEJO__server__SSH_PORT={{ forgejo_ssh_port }}
+{% if forgejo_lfs_enabled %}
+      - FORGEJO__lfs__LFS_START_SERVER=true
+      - FORGEJO__lfs__LFS_JWT_SECRET={{ forgejo_lfs_jwt_secret }}
+{% endif %}
+{% if forgejo_mailer_enabled %}
+      - FORGEJO__mailer__ENABLED=true
+      - FORGEJO__mailer__HOST={{ forgejo_mailer_host }}:{{ forgejo_mailer_port }}
+      - FORGEJO__mailer__USER={{ forgejo_mailer_user }}
+      - FORGEJO__mailer__PASSWD={{ forgejo_mailer_passwd }}
+      - FORGEJO__mailer__FROM={{ forgejo_mailer_from }}
+{% endif %}
+    restart: unless-stopped
+    volumes:
+      - {{ forgejo_data_dir }}:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "{{ forgejo_http_bind }}:{{ forgejo_http_port }}:3000"
+      - "{{ forgejo_ssh_bind }}:{{ forgejo_ssh_port }}:22"
+    depends_on:
+      - db

@@ -1,0 +1,42 @@
+---
+- name: Group
+  ansible.builtin.group:
+    name: "{{ forgejo_group }}"
+    state: present
+  register: forgejo_group_info
+
+- name: User
+  ansible.builtin.user:
+    name: "{{ forgejo_user }}"
+    group: "{{ forgejo_group }}"
+    home: "{{ forgejo_home_dir }}"
+    shell: /bin/bash
+    system: true
+    state: present
+  register: forgejo_user_info
+
+- name: Directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ forgejo_user }}"
+    group: "{{ forgejo_group }}"
+    mode: '0755'
+  loop:
+    - "{{ forgejo_home_dir }}"
+    - "{{ forgejo_data_dir }}"
+
+
+- name: Docker Compose config
+  ansible.builtin.template:
+    src: docker-compose.yml.j2
+    dest: "{{ forgejo_home_dir }}/docker-compose.yml"
+    owner: "{{ forgejo_user }}"
+    group: "{{ forgejo_group }}"
+    mode: '0644'
+  notify: restart forgejo
+
+- name: Forgejo service
+  ansible.builtin.docker_compose:
+    project_src: "{{ forgejo_home_dir }}"
+    state: present

@@ -12,6 +12,7 @@ do:
 hetzner:
   hosts:
     vizzini:
+    rex:
 
 #
 # Function groups:
@@ -21,6 +22,9 @@ production:
     atuin:
       hosts:
         vizzini:
+    forgejo:
+      hosts:
+        rex:
     redis:
       hosts:
         web03.do.rndsvc.net:

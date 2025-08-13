@@ -1,0 +1,116 @@
+---
+argument_specs:
+  main:
+    short_description: Forgejo Git service deployment
+    description:
+      - Ensures forgejo user and group exist
+      - Manages Docker Compose configuration for Forgejo
+      - Ensures Forgejo service is running
+    options:
+      forgejo_version:
+        type: str
+        description: Forgejo Docker image version
+      forgejo_user:
+        type: str
+        default: forgejo
+        description: System user for running Forgejo
+      forgejo_group:
+        type: str
+        default: forgejo
+        description: System group for Forgejo user
+      forgejo_home_dir:
+        type: path
+        default: /opt/forgejo
+        description: Home directory for Forgejo installation
+      forgejo_data_dir:
+        type: path
+        default: /opt/forgejo/data
+        description: Data directory for Forgejo
+      forgejo_http_bind:
+        type: str
+        default: "127.0.0.1"
+        description: Bind address for HTTP port (use 0.0.0.0 to expose externally)
+      forgejo_http_port:
+        type: int
+        default: 3000
+        description: Host HTTP port to expose Forgejo web interface
+      forgejo_ssh_bind:
+        type: str
+        default: "127.0.0.1"
+        description: Bind address for SSH port (use 0.0.0.0 to expose externally)
+      forgejo_ssh_port:
+        type: int
+        default: 2222
+        description: Host SSH port to expose for Git operations
+      forgejo_db_host:
+        type: str
+        default: localhost
+        description: Database host
+      forgejo_db_port:
+        type: int
+        default: 5432
+        description: Database port
+      forgejo_db_name:
+        type: str
+        default: forgejo
+        description: Database name
+      forgejo_db_user:
+        type: str
+        default: forgejo
+        description: Database user
+      forgejo_db_password:
+        type: str
+        required: true
+        description: Database password (should be vaulted)
+      forgejo_secret_key:
+        type: str
+        required: true
+        description: Secret key for security (should be vaulted)
+      forgejo_jwt_secret:
+        type: str
+        required: true
+        description: JWT secret (should be vaulted)
+      forgejo_mailer_enabled:
+        type: bool
+        default: false
+        description: Enable email functionality
+      forgejo_mailer_host:
+        type: str
+        required: false
+        description: SMTP host for sending emails
+      forgejo_mailer_port:
+        type: int
+        default: 587
+        description: SMTP port
+      forgejo_mailer_user:
+        type: str
+        required: false
+        description: SMTP username
+      forgejo_mailer_passwd:
+        type: str
+        required: false
+        description: SMTP password (should be vaulted)
+      forgejo_mailer_from:
+        type: str
+        required: false
+        description: From email address
+      forgejo_domain:
+        type: str
+        required: true
+        description: Domain name for Forgejo instance
+      forgejo_ssh_domain:
+        type: str
+        required: false
+        description: SSH domain (defaults to forgejo_domain if not specified)
+      forgejo_root_url:
+        type: str
+        required: false
+        description: Root URL (auto-generated from domain if not specified)
+      forgejo_lfs_enabled:
+        type: bool
+        default: false
+        description: Enable Git LFS support
+      forgejo_lfs_jwt_secret:
+        type: str
+        required: false
+        description: LFS JWT secret (should be vaulted)
