@@ -64,7 +64,9 @@ Subsequent runs must use _your_ user account and SSH key, and Ansible will need 
 
 For subsequent runs of this (updating users, for instance), do the following:
 
-    ansible-playbook play/site.yml --ask-become-pass
+```sh
+ansible-playbook play/site.yml --ask-become-pass
+```
 
 This will update all servers, *note that this may restart services*.
 
@@ -74,13 +76,18 @@ You can specify a group name (from the `hosts` file), or a full hostname.
 ## Project notes
 
 - When using nodenv, the project needs to do the following before a deployment:
-   `if [[ "$(node -v 2>&1)" =~ "is not installed" ]]; then nodenv install; corepack install; corepack enable; fi`
+  ```sh
+  `if [[ "$(node -v 2>&1)" =~ "is not installed" ]]; then nodenv install; corepack install; corepack enable; fi`
+  ```
 
 ## TODO
 
 - Other processes. e.g. Sidekiq
 - Use sockets for Ruby web apps instead of local ports
 - nvm or nodejs installation. Currently it must be done manually:
-    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-    sudo apt-get install -y nodejs
-    npm install -g yarn
+  ```sh
+  curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+  sudo apt-get install -y nodejs
+  npm install -g yarn
+  ```
+
