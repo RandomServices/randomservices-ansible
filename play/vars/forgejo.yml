@@ -1,8 +1,8 @@
 ---
 forgejo_version: 12.0.1
-forgejo_http_bind: "0.0.0.0:80"
-forgejo_https_bind: "0.0.0.0:443"
-forgejo_ssh_bind: "0.0.0.0:222"
+forgejo_http_bind: "80"
+forgejo_https_bind: "443"
+forgejo_ssh_bind: "222"
 forgejo_external_ssh_port: "222"
 forgejo_domain: code.rndsvc.net
 forgejo_db_host: localhost
@@ -42,6 +42,7 @@ forgejo_lfs_jwt_secret: !vault |
   6330303732373333630a343664313462313934313139373831643339646531386638656431343561
   31376234356231626338363166366336303964363035303136373438343362313464636139383263
   6639633337396133383565373864613335363263333762353863
+forgejo_mailer_enabled: true
 forgejo_mailer_host: smtp.postmarkapp.com
 forgejo_mailer_port: 2525
 forgejo_mailer_from: noreply@code.rndsvc.net

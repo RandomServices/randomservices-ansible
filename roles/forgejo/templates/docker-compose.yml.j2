@@ -40,8 +40,11 @@ services:
     image: caddy:latest
     container_name: caddy
     restart: unless-stopped
+    depends_on:
+      - forgejo
     ports:
-      - "{{ forgejo_http_bind }}:3000"
-      - "{{ forgejo_https_bind }}:3000"
+      - "{{ forgejo_http_bind }}:80"
+      - "{{ forgejo_https_bind }}:443"
+      - "{{ forgejo_https_bind }}:443/udp"
     volumes:
       - "{{ forgejo_caddy_config_dir }}:/etc/caddy"

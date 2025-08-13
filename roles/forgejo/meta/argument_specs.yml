@@ -33,15 +33,15 @@ argument_specs:
       forgejo_http_bind:
         type: str
         default: "127.0.0.1:80"
-        description: Bind address for HTTP port (use 0.0.0.0:80 to expose externally)
+        description: Bind address for HTTP port (use 80 to expose externally)
       forgejo_https_bind:
         type: str
         default: "127.0.0.1:443"
-        description: Bind address for HTTPS port (use 0.0.0.0:443 to expose externally)
+        description: Bind address for HTTPS port (use 443 to expose externally)
       forgejo_ssh_bind:
         type: str
         default: "127.0.0.1:222"
-        description: Bind address for SSH port (use 0.0.0.0:222 to expose externally)
+        description: Bind address for SSH port (use 222 to expose externally)
       forgejo_external_ssh_port:
         type: str
         default: "222"
