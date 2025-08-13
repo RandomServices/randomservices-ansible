@@ -9,16 +9,18 @@ do:
       vars:
         ansible_python_interpreter: /usr/bin/python3
     web03.do.rndsvc.net:
+hetzner:
+  hosts:
+    vizzini:
 
 #
 # Function groups:
 #
 production:
   children:
-    jump:
+    atuin:
       hosts:
-        jump01.nyc3.do.rndsvc.net:
-          ansible_host: nyc3.do.jump.rndsvc.net
+        vizzini:
     redis:
       hosts:
         web03.do.rndsvc.net:

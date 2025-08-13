@@ -1,0 +1,28 @@
+---
+- name: Postgresql server
+  hosts: atuin
+  become: true
+  roles:
+    - geerlingguy.postgresql
+  vars_files:
+    - vars/atuin.yml
+  vars:
+    postgresql_version: 15
+    postgresql_databases:
+      - name: atuin
+        owner: atuin
+    postgresql_users:
+      - name: atuin
+        password: "{{ atuin_db_password }}"
+        login_host: localhost
+- name: Atuin
+  hosts: atuin
+  become: true
+  roles:
+    - wzzrd.atuin.atuin_server
+  vars_files:
+    - vars/atuin.yml
+  vars:
+    atuin_client_version: 18.8.0
+    atuin_server_host: 0.0.0.0
+    atuin_server_db_uri: "postgresql://atuin:{{ atuin_db_password }}@localhost/atuin"

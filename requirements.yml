@@ -1,3 +1,14 @@
 ---
-- name: ome.postgresql_client
-  version: 0.4.3
+roles:
+  - name: ome.postgresql_client
+    version: 0.4.3
+  - name: geerlingguy.postgresql
+    version: 4.0.1
+
+collections:
+  - name: community.postgresql
+    version: 4.1.0
+  - name: community.general
+    version: 10.7.3
+  - name: wzzrd.atuin
+    version: 2.1.2

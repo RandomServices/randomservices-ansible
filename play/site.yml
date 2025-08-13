@@ -10,6 +10,8 @@
     - fail2ban
     - groups
     - users
+- name: Atuin
+  ansible.builtin.import_playbook: atuin.yml
 - name: Astro Production
   ansible.builtin.import_playbook: astro_production.yml
 - name: Finch Production
