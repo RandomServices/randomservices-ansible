@@ -6,13 +6,13 @@ We are using Ansible to configure servers.
 
 1. Install [uv](https://docs.astral.sh/uv/getting-started/installation/) for Python dependency management
 
+1. Install [direnv](https://direnv.net) for automatic environment activation
+
+1. Allow direnv to activate the environment: `direnv allow`
+
 1. Install 1Password and the [1Password CLI](https://developer.1password.com/docs/cli/get-started/)
 
 1. Install dependencies: `make install`
-
-This will:
-- Install Python dependencies (including ansible-core) using uv
-- Install Ansible Galaxy roles and collections
 
 ### Inventory File
 

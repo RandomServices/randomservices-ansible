@@ -2,6 +2,7 @@
 
 !.vscode
 !.editorconfig
+!.envrc
 
 inventory-dev
 *.retry
